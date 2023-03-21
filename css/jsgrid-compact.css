@@ -1,0 +1,54 @@
+.jsgrid-cell {
+    padding: 0.2em 0.5em;
+}
+
+.jsgrid-header-title {
+    padding: .2em .5em;
+}
+
+.jsgrid-filter-row input,
+.jsgrid-filter-row textarea,
+.jsgrid-filter-row select,
+.jsgrid-edit-row input,
+.jsgrid-edit-row textarea,
+.jsgrid-edit-row select,
+.jsgrid-insert-row input,
+.jsgrid-insert-row textarea,
+.jsgrid-insert-row select,
+.jsgrid-summary-row select {
+    padding: 0em 0em;
+}
+
+.jsgrid-header-sort-asc > .jsgrid-header-title::before {
+    margin-right: 5px;
+}
+
+.jsgrid .jsgrid-button {
+    background-image: url(icons-compact.png);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+    .jsgrid .jsgrid-button {
+        background-image: url(icons-compact.png);
+        background-size: 16px 144px;
+    }
+}
+
+.jsgrid-header-sort-desc > .jsgrid-header-title:before {
+    margin-right: 5px;
+}
+
+.jsgrid .jsgrid-mode-button {
+    width: 16px;
+    height: 16px;
+}
+
+.jsgrid-cancel-edit-button { background-position: 0px 0px; background-position-x: 0px; background-position-y: 0px; width: 16px; height: 16px; }
+.jsgrid-clear-filter-button { background-position: 0px -16px; background-position-x: 0px; background-position-y: -16px;  width: 16px; height: 16px; }
+.jsgrid-delete-button { background-position: 0px -32px; background-position-x: 0px; background-position-y: -32px;  width: 16px; height: 16px; }
+.jsgrid-edit-button { background-position: 0px -48px; background-position-x: 0px; background-position-y: -48px;  width: 16px; height: 16px; }
+.jsgrid-insert-mode-button { background-position: 0px -64px; background-position-x: 0px; background-position-y: -64px;  width: 16px; height: 16px; }
+.jsgrid-insert-button { background-position: 0px -80px; background-position-x: 0px; background-position-y: -80px;  width: 16px; height: 16px; }
+.jsgrid-search-mode-button { background-position: 0px -96px; background-position-x: 0px; background-position-y: -96px;  width: 16px; height: 16px; }
+.jsgrid-search-button { background-position: 0px -112px; background-position-x: 0px; background-position-y: -112px;  width: 16px; height: 16px; }
+.jsgrid-update-button { background-position: 0px -128px; background-position-x: 0px; background-position-y: -128px;  width: 16px; height: 16px; }

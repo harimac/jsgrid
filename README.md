@@ -18,6 +18,9 @@ jsGrid is tunable and allows to customize appearance and components.
 - **(Multi) Row selection**
 - **Summary row**
 - Filter of text column supports wildcard.
+- Compact theme.
+
+![compact grid](compact-grid.png)
 
 ## Table of contents
 
