@@ -17,6 +17,7 @@ jsGrid is tunable and allows to customize appearance and components.
 - **Cloumn header resizing**
 - **(Multi) Row selection**
 - **Summary row**
+- Filter of text column supports wildcard.
 
 ## Table of contents
 
