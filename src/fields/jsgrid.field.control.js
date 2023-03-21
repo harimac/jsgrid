@@ -6,16 +6,20 @@
         Field.call(this, config);
         this.includeInDataExport = false;
         this._configInitialized = false;
+        if (!this.name)
+          this.name = "jsgrid-control";
     }
 
     ControlField.prototype = new Field({
         css: "jsgrid-control-field",
         align: "center",
-        width: 50,
+        width: "auto",
         filtering: false,
         inserting: false,
         editing: false,
         sorting: false,
+        deletable: true,
+        deletableFlagField: "",
 
         buttonClass: "jsgrid-button",
         modeButtonClass: "jsgrid-mode-button",
@@ -80,11 +84,11 @@
         itemTemplate: function(value, item) {
             var $result = $([]);
 
-            if(this.editButton) {
+            if(this.editButton && this.editable && (!this.editableFlagField || item[this.editableFlagField])) {
                 $result = $result.add(this._createEditButton(item));
             }
 
-            if(this.deleteButton) {
+            if(this.deleteButton && this.deletable && (!this.deletableFlagField || item[this.deletableFlagField])) {
                 $result = $result.add(this._createDeleteButton(item));
             }
 
@@ -100,8 +104,10 @@
             return this._createInsertButton();
         },
 
-        editTemplate: function() {
-            return this._createUpdateButton().add(this._createCancelEditButton());
+        editTemplate: function(value, item) {
+            if(this.editButton && this.editable && (!this.editableFlagField || item[this.editableFlagField]))
+                return this._createUpdateButton().add(this._createCancelEditButton());
+            return "";
         },
 
         _createFilterSwitchButton: function() {
@@ -173,7 +179,14 @@
 
         _createClearFilterButton: function() {
             return this._createGridButton(this.clearFilterButtonClass, this.clearFilterButtonTooltip, function(grid) {
-                grid.clearFilter();
+                grid._eachField(function(field) {
+                  var eventArgs = {
+      			    columnName: field.name,
+      			    value: null
+      			  }
+      			  grid._callEventHandler(grid.onFilterChanged, eventArgs);
+                });
+                grid.clearFilter(true);
             });
         },
 
@@ -201,8 +214,9 @@
 
         _createGridButton: function(cls, tooltip, clickHandler) {
             var grid = this._grid;
+            var classes = jsGrid.fieldsClasses.button ? " class='" + jsGrid.fieldsClasses.button + "'" : "";
 
-            return $("<input>").addClass(this.buttonClass)
+            return $("<button" + classes + ">").addClass(this.buttonClass)
                 .addClass(cls)
                 .attr({
                     type: "button",
@@ -215,6 +229,12 @@
 
         editValue: function() {
             return "";
+        },
+
+        summaryValue: function(values) {
+          var text = this.totalLabel + ": " + values.length + " " + this.rowsLabel;
+          this.summaryControl.html(text);
+          this.summaryControl.attr("title", text);
         }
 
     });

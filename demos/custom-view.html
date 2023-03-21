@@ -22,6 +22,7 @@
     <script src="../src/fields/jsgrid.field.select.js"></script>
     <script src="../src/fields/jsgrid.field.checkbox.js"></script>
     <script src="../src/fields/jsgrid.field.control.js"></script>
+    <script src="../src/fields/jsgrid.field.spacer.js"></script>
 
     <style>
         .config-panel {
@@ -47,6 +48,8 @@
         <label><input id="paging" type="checkbox" checked /> Paging</label>
         <label><input id="sorting" type="checkbox" checked /> Sorting</label>
         <label><input id="selecting" type="checkbox" checked /> Selecting</label>
+        <label><input id="summarying" type="checkbox" checked /> Summarying</label>
+        <label><input id="resizing" type="checkbox" checked /> Reizing Header</label>
     </div>
 
     <div id="jsGrid"></div>
@@ -61,6 +64,8 @@
                 editing: true,
                 sorting: true,
                 paging: true,
+                summarying: true,
+                resizing: true,
                 autoload: true,
                 pageSize: 15,
                 pageButtonCount: 5,

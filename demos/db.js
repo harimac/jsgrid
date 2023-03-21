@@ -4,9 +4,9 @@
 
         loadData: function(filter) {
             return $.grep(this.clients, function(client) {
-                return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
+                return jsGrid.filterExtendedString(client.Name, filter.Name)
                     && (filter.Age === undefined || client.Age === filter.Age)
-                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
+                    && jsGrid.filterExtendedString(client.Address, filter.Address)
                     && (!filter.Country || client.Country === filter.Country)
                     && (filter.Married === undefined || client.Married === filter.Married);
             });

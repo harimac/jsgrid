@@ -17,10 +17,17 @@
         inserting: true,
         editing: true,
         sorting: true,
+        resizing: true,
         sorter: "string", // name of SortStrategy or function to compare elements
-        
-        includeInDataExport: true,
+        defaultValue: undefined,
+        editable: true,
+        editableFlagField: "",
+        summaryControl:null,
+        totalLabel: "Total",
+        rowsLabel: "rows",
+        emptyLabel: "Empty",
 
+        includeInDataExport: true,
         headerTemplate: function() {
             return (this.title === undefined || this.title === null) ? this.name : this.title;
         },
@@ -42,8 +49,15 @@
             return this.itemTemplate(value, item);
         },
 
+        summaryTemplate: function() {
+            this.summaryControl = $("<div>").append((this.title === undefined || this.title === null) ? this.name : this.title);
+            return this.summaryControl;
+        },
+
         filterValue: function() {
             return "";
+        },
+        setFilterValue: function(newValue) {
         },
 
         insertValue: function() {
@@ -52,6 +66,13 @@
 
         editValue: function() {
             return this._value;
+        },
+
+        summaryValue: function(values) {
+          var empties = values.filter((val) => val === undefined || val === null || val === "");
+          var text = this.emptyLabel + ": " + empties.length + " " + this.rowsLabel;
+          this.summaryControl.html(text);
+          this.summaryControl.attr("title", text);
         },
 
         _getSortingFunc: function() {
@@ -70,5 +91,6 @@
     };
 
     jsGrid.Field = Field;
+    jsGrid.fields = Field;
 
 }(jsGrid, jQuery));

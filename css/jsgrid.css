@@ -26,9 +26,58 @@
 }
 
 .jsgrid-grid-body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.jsgrid-content-hidden-header {
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  height: 0px !important;
+  pointer-events: none;
+}
+
+.jsgrid-content-hidden-header * {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  height: 0px !important;
+  pointer-events: none;
+}
+
+.jsgrid-content-hidden-header-cell {
+  border: 0 none !important;
+  padding: 0px !important;
+  pointer-events: none;
+}
+
+.jsgrid-grid-summary {
     overflow-x: auto;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+}
+
+.jsgrid-hidden-summary * > .jsgrid-summary-row {
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  height: 1px !important;
+}
+
+.jsgrid-hidden-summary * > .jsgrid-summary-row * {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  height: 1px !important;
+}
+
+.jsgrid-hidden-summary * > .jsgrid-summary-content {
+  border: 0 none !important;
+  padding: 0px !important;
 }
 
 .jsgrid-table {
@@ -41,10 +90,21 @@
 .jsgrid-cell {
     padding: 0.5em 0.5em;
 }
+.jsgrid-cell.jsgrid-spacer-field {
+    padding: 0 0;
+}
 
-.jsgrid-cell,
-.jsgrid-header-cell {
+.jsgrid-cell {
     box-sizing: border-box;
+}
+.jsgrid-header-cell {
+    position: relative;
+}
+
+.jsgrid-summary-cell {
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .jsgrid-align-left {
@@ -65,8 +125,17 @@
     text-align: right;
 }
 
-.jsgrid-header-cell {
+.jsgrid-header-title {
     padding: .5em .5em;
+}
+.jsgrid-spacer-field > .jsgrid-header-title {
+    padding: 0 0;
+}
+.jsgrid-summary-content {
+    padding: .2em .5em;
+}
+.jsgrid-spacer-field > .jsgrid-summary-content {
+    padding: 0 0;
 }
 
 .jsgrid-filter-row input,
@@ -77,7 +146,8 @@
 .jsgrid-edit-row select,
 .jsgrid-insert-row input,
 .jsgrid-insert-row textarea,
-.jsgrid-insert-row select {
+.jsgrid-insert-row select,
+.jsgrid-summary-row select {
     width: 100%;
     padding: .3em .5em;
 }
@@ -89,6 +159,9 @@
 }
 
 
+.jsgrid-hovered-row .jsgrid-cell {
+    cursor: pointer;
+}
 .jsgrid-selected-row .jsgrid-cell {
     cursor: pointer;
 }
@@ -100,6 +173,18 @@
 
 .jsgrid-header-sort {
     cursor: pointer;
+}
+
+.jsgrid-header-resize {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -3px;
+    width: 6px;
+    background: transparent;
+    z-index: 2;
+    cursor: ew-resize;
 }
 
 .jsgrid-pager {

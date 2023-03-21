@@ -52,7 +52,7 @@ $ bower install js-grid --save
 
 ```
 
-Find jsGrid cdn links [here](https://cdnjs.com/libraries/jsgrid). 
+Find jsGrid cdn links [here](https://cdnjs.com/libraries/jsgrid).
 
 
 ## Basic Usage
@@ -111,19 +111,24 @@ The config object may contain following options (default values are specified be
     height: "auto",
 
     heading: true,
+    <span style="color:red">resizing: false</span>,
+    <span style="color:red">summarying: false</span>,
     filtering: false,
     inserting: false,
     editing: false,
+    <span style="color:red">editOnRowClick: false</span>,
     selecting: true,
+    <span style="color:red">multiSelecting: false</span>,
     sorting: false,
     paging: false,
     pageLoading: false,
 
-    insertRowLocation: "bottom",
-    
+    insertRowLocation: <span style="color:red">"sorted"</span>,
+
     rowClass: function(item, itemIndex) { ... },
     rowClick: function(args) { ... },
     rowDoubleClick: function(args) { ... },
+    <span style="color:red">rowContextmenu: function(args) { ... }</span>,
 
     noDataContent: "Not found",
 
@@ -144,7 +149,7 @@ The config object may contain following options (default values are specified be
 
     invalidNotify: function(args) { ... }
     invalidMessage: "Invalid data entered!",
-    
+
     loadIndication: true,
     loadIndicationDelay: 500,
     loadMessage: "Please, wait...",
@@ -159,6 +164,7 @@ The config object may contain following options (default values are specified be
     filterRowRenderer: null,
     insertRowRenderer: null,
     editRowRenderer: null,
+    <span style="color:red">summaryRowRenderer: null</span>,
     pagerRenderer: null
 }
 
@@ -186,25 +192,31 @@ General options peculiar to all field types:
     filtercss: "",
     insertcss: "",
     editcss: "",
-    
+
     filtering: true,
     inserting: true,
     editing: true,
     sorting: true,
     sorter: "string",
+    <span style="color:red">resizing: true</span>,
+    <span style="color:red">editable: true</span>,
+    <span style="color:red">editableFlagField: ""</span>,
 
     headerTemplate: function() { ... },
     itemTemplate: function(value, item) { ... },
     filterTemplate: function() { ... },
     insertTemplate: function() { ... },
     editTemplate: function(value, item) { ... },
+    <span style="color:red">summaryTemplate: function() { ... }</span>,
 
+    <span style="color:red">defaultValue: undefined</span>,
     filterValue: function() { ... },
     insertValue: function() { ... },
     editValue: function() { ... },
+    <span style="color:red">summaryValue: function(values) { ... }</span>,
 
     cellRenderer: null,
-    
+
     validate: null
 }
 
@@ -226,16 +238,21 @@ General options peculiar to all field types:
 - **editing** is a boolean specifying whether or not column has editing (`editTemplate()` is rendered and `editValue()` is included in editing item).
 - **sorting** is a boolean specifying whether or not column has sorting ability.
 - **sorter** is a string or a function specifying how to sort item by the field. The string is a key of sorting strategy in the registry `jsGrid.sortStrategies` (the registry can be easily extended with custom sorting functions). Sorting function has the signature `function(value1, value2) { return -1|0|1; }`.
+- <span style="color:red">**resizing** is a boolean specifying whether or not column is resizable.</span>
+- <span style="color:red">**editable** is a boolean specifying whether or not cell in column is editable. **editable** of each item property can be controlled by another property value by specifiying as `editableFlagField`.</span>
 - **headerTemplate** is a function to create column header content. It should return markup as string, DomNode or jQueryElement.
 - **itemTemplate** is a function to create cell content. It should return markup as string, DomNode or jQueryElement. The function signature is `function(value, item)`, where `value` is a value of column property of data item, and `item` is a row data item.
 - **filterTemplate** is a function to create filter row cell content. It should return markup as string, DomNode or jQueryElement.
 - **insertTemplate** is a function to create insert row cell content. It should return markup as string, DomNode or jQueryElement.
 - **editTemplate** is a function to create cell content of editing row. It should return markup as string, DomNode or jQueryElement. The function signature is `function(value, item)`, where `value` is a value of column property of data item, and `item` is a row data item.
+- <span style="color:red">**summaryTemplate** is a function to create cell content of summary row row. It should return markup as string, DomNode or jQueryElement.</span>
+- <span style="color:red">**defaultValue** is a value of item property associated with the column.</span>
 - **filterValue** is a function returning the value of filter property associated with the column.
 - **insertValue** is a function returning the value of inserting item property associated with the column.
 - **editValue** is a function returning the value of editing item property associated with the column.
+- <span style="color:red">**summaryValue** is a function returning the value of summary values of all items in the grid associated with the column.</span>
 - **cellRenderer** is a function to customize cell rendering. The function signature is `function(value, item)`, where `value` is a value of column property of data item, and `item` is a row data item. The function should return markup as a string, jQueryElement or DomNode representing table cell `td`.
-- **validate** is a string as validate rule name or validation function or a validation configuration object or an array of validation configuration objects. Read more details about validation in the [Validation section](#validation). 
+- **validate** is a string as validate rule name or validation function or a validation configuration object or an array of validation configuration objects. Read more details about validation in the [Validation section](#validation).
 
 Specific field options depends on concrete field type.
 Read about build-in fields in [Grid Fields](#grid-fields) section.
@@ -278,6 +295,12 @@ Accepts all value types accepting by `jQuery.height`.
 ### heading (default: `true`)
 A boolean value specifies whether to show grid header or not.
 
+<span style="color:red">### resizing (default: `false`)</span>
+A boolean value specifies whether to grid header is resizable or not.
+
+<span style="color:red"">### summarying (default: `false`)</span>
+A boolean value specifies whether to show grid summary row or not.
+
 ### filtering (default: `false`)
 A boolean value specifies whether to show filter row or not.
 
@@ -287,8 +310,14 @@ A boolean value specifies whether to show inserting row or not.
 ### editing (default: `false`)
 A boolean value specifies whether editing is allowed.
 
+<span style="color:red"">### summarying (default: `false`)</span>
+A boolean value specifies whether to show grid summary row or not.
+
 ### selecting (default: `true`)
-A boolean value specifies whether to highlight grid rows on hover.
+A boolean value specifies whether to highlight <span style="color:red">and select</span> a grid row.
+
+<span style="color:red">### editOnRowClick (default: `false`)</span>
+A boolean value specifies whether to begin editing grid row by single click. If `false`, begin editing row by double clicking.
 
 ### sorting (default: `false`)
 A boolean value specifies whether sorting is allowed.
@@ -298,11 +327,11 @@ A boolean value specifies whether data is displayed by pages.
 
 ### pageLoading (default: `false`)
 A boolean value specifies whether to load data by page.
-When `pageLoading` is `true` the `loadData` method of controller accepts `filter` parameter with two additional properties `pageSize` and `pageIndex`.     
+When `pageLoading` is `true` the `loadData` method of controller accepts `filter` parameter with two additional properties `pageSize` and `pageIndex`.
 
-### insertRowLocation (default: `"bottom"`)    
-Specifies the location of an inserted row within the grid.    
-When `insertRowLocation` is `"bottom"` the new row will appear at the bottom of the grid. When set to `"top"`, the new row will appear at the top. 
+### insertRowLocation (default: `<span style="color:red">"sorted"</span>`)
+Specifies the location of an inserted row within the grid.
+When `insertRowLocation` is `"bottom"` the new row will appear at the bottom of the grid. When set to `"top"`, the new row will appear at the top.
 
 ### rowClass
 A string or a function specifying row css classes.
@@ -326,6 +355,19 @@ By default `rowClick` performs row editing when `editing` is `true`.
 
 ### rowDoubleClick
 A function handling row double click. Accepts single argument with the following structure:
+
+```javascript
+
+{
+     item       // data item
+     itemIndex  // data item index
+     event      // jQuery event
+}
+
+```
+
+<span style="color:red">### rowContextmenu</span>
+A function handling row mouse right click. Accepts single argument with the following structure:
 
 ```javascript
 
@@ -419,21 +461,21 @@ The function accepts a single argument with the following structure:
 In the following example error messages are printed in the console instead of alerting:
 
 ```javascript
-    
+
 $("#grid").jsGrid({
     ...
-    
+
     invalidNotify: function(args) {
         var messages = $.map(args.errors, function(error) {
             return error.field + ": " + error.message;
         });
-        
+
         console.log(messages);
     }
-    
+
     ...
-}); 
-    
+});
+
 ```
 
 ### loadIndication (default `true`)
@@ -480,16 +522,20 @@ The function should return markup as a string, jQueryElement or DomNode represen
 A function to customize editing row rendering. The function signature is `function(item, itemIndex)`, where `item` is row data item, and `itemIndex` is the item index.
 The function should return markup as a string, jQueryElement or DomNode representing table row `tr`.
 
+<span style="color:red">### summaryRowRenderer (default `null`)</span>
+A function to customize grid summarying row.
+The function should return markup as a string, jQueryElement or DomNode representing table row `tr`.
+
 ### pagerRenderer (default `null`)
-> version added: 1.2 
+> version added: 1.2
 
 A function to customize pager rendering. The function accepts a single argument with the following structure:
 
 ```javascript
 {
     pageIndex,      // index of the currently opened page
-    pageCount       // total amount of grid pages 
-} 
+    pageCount       // total amount of grid pages
+}
 ```
 
 The function should return markup as a string, jQueryElement or DomNode representing the pager.
@@ -525,8 +571,9 @@ Custom properties:
 ```javascript
 
 {
-    autosearch: true,   // triggers searching when the user presses `enter` key in the filter input
-    readOnly: false     // a boolean defines whether input is readonly (added in v1.4)
+    <span style="color:red">extendedFilter</span>: true,   // a boolean defines whether filter supports wildcard.
+    autosearch: true,       // triggers searching when the user presses `enter` key in the filter input
+    readOnly: false         // a boolean defines whether input is readonly (added in v1.4)
 }
 
 ```
@@ -539,6 +586,10 @@ Custom properties:
 ```javascript
 
 {
+    <span style="color:red">valueType</span>: "integer", // or "float". a string defines where value type is integer or float.
+    <span style="color:red">minValue</span>: undefined,    // a number value defines minimum value to input.
+    <span style="color:red">maxValue</span>: undefined,    // a number value defines maximum value to input.
+    <span style="color:red">valueStep</span>: undefined,    // a number value defines step to change value by clicking up/down arrows in the edit box.
     sorter: "number",   // uses sorter for numbers
     align: "right",     // right text alignment
     readOnly: false     // a boolean defines whether input is readonly (added in v1.4)
@@ -554,6 +605,7 @@ Custom properties:
 ```javascript
 
 {
+    <span style="color:red">allowEmpty</span>: true, // a boolean defines whether allows property value be empty.
     align: "center",            // center text alignment
     autosearch: true,           // triggers searching when the user changes the selected item in the filter
     items: [],                  // an array of items for select
@@ -600,7 +652,7 @@ or more complex with items as objects:
 
 ```
 
-`valueType` defines whether the field value should be converted to a number or returned as a string. 
+`valueType` defines whether the field value should be converted to a number or returned as a string.
 The value of the option is determined automatically depending on the data type of `valueField` of the first item, but it can be overridden.
 
 ### checkbox
@@ -653,6 +705,8 @@ Custom properties:
     inserting: false,                               // disable inserting for column
     editing: false,                                 // disable editing for column
     sorting: false,                                 // disable sorting for column
+    <span style="color:red">deletable</span>: true,                         // enable delete button on each row
+    <span style="color:red">deletableFlagField</span>: "",                         // switch delete button on each row enable/disable on specified item property value.
 
     searchModeButtonTooltip: "Switch to searching", // tooltip of switching filtering/inserting button in inserting mode
     insertModeButtonTooltip: "Switch to inserting", // tooltip of switching filtering/inserting button in filtering mode
@@ -761,12 +815,12 @@ var grid = $("#grid").data("JSGrid");
 var grid = new jsGrid.Grid($("#grid"), { ... });
 
 // call method directly
-grid.methodName(param1, param2); 
+grid.methodName(param1, param2);
 
 ```
 
 ### cancelEdit()
-Cancels row editing. 
+Cancels row editing.
 
 ```javascript
 
@@ -776,7 +830,7 @@ $("#grid").jsGrid("cancelEdit");
 
 ### clearFilter(): `Promise`
 Clears current filter and performs search with empty filter.
-Returns jQuery promise resolved when data filtering is completed. 
+Returns jQuery promise resolved when data filtering is completed.
 
 ```javascript
 
@@ -787,7 +841,7 @@ $("#grid").jsGrid("clearFilter").done(function() {
 ```
 
 ### clearInsert()
-Clears current inserting row. 
+Clears current inserting row.
 
 ```javascript
 
@@ -857,9 +911,11 @@ Get grid current sorting params as a plain object with the following format:
 
 ```javascript
 
-{  
+{
     field,      // the name of the field by which grid is sorted
-    order       // 'asc' or 'desc' depending on sort order
+    order,       // 'asc' or 'desc' depending on sort order
+    <span style="color:red">field2</span>,      // the name of the 2nd field by which grid is sorted in case of 1st field values are same
+    <span style="color:red">order2</span>       // 'asc' or 'desc' depending on sort order in case of 1st field values are same
 }
 
 ```
@@ -870,16 +926,25 @@ var sorting = $("#grid").jsGrid("getSorting");
 
 ```
 
+<span style="color:red">### getSelectedItems()</span>: `Object`
+Get selected items in grid as a plain objects.
+
+```javascript
+
+var selectedItems = $("#grid").jsGrid("getSelectedItems");
+
+```
+
 ### fieldOption(fieldName|fieldIndex, optionName, [optionValue])
 > version added: 1.3
 
 Gets or sets the value of a field option.
- 
+
 **fieldName|fieldIndex** is the name or the index of the field to get/set the option value (if the grid contains more than one field with the same name, the first field will be used).
- 
+
 **optionName** is the name of the field option.
 
-**optionValue** is the new option value to set. 
+**optionValue** is the new option value to set.
 
 If `optionValue` is not specified, then the value of the field option `optionName` will be returned.
 
@@ -895,9 +960,9 @@ var secondFieldOption = $("#grid").jsGrid("fieldOption", 1, "width");
 
 ### insertItem([item]): `Promise`
 Inserts row into the grid based on item.
-Returns jQuery promise resolved when insertion is completed. 
- 
-**item** is the item to pass to `controller.insertItem`. 
+Returns jQuery promise resolved when insertion is completed.
+
+**item** is the item to pass to `controller.insertItem`.
 
 If `item` is not specified the data from inserting row will be inserted.
 
@@ -914,11 +979,11 @@ $("#grid").jsGrid("insertItem", { Name: "John", Age: 25, Country: 2 }).done(func
 ```
 
 ### loadData([filter]): `Promise`
-Loads data calling corresponding `controller.loadData` method. 
+Loads data calling corresponding `controller.loadData` method.
 Returns jQuery promise resolved when data loading is completed.
 It preserves current sorting and paging unlike the `search` method .
- 
-**filter** is a filter to pass to `controller.loadData`. 
+
+**filter** is a filter to pass to `controller.loadData`.
 
 If `filter` is not specified the current filter (filtering row values) will be applied.
 
@@ -934,10 +999,10 @@ $("#grid").jsGrid("loadData", { Name: "John" }).done(function() {
 
 ```
 
-### exportData([options])    
-Transforms the grid data into the specified output type.    
-Output can be formatted, filtered or modified by providing options.     
-Currently only supports CSV output.    
+### exportData([options])
+Transforms the grid data into the specified output type.
+Output can be formatted, filtered or modified by providing options.
+Currently only supports CSV output.
 
 ```javascript
 //Basic export
@@ -951,11 +1016,11 @@ var csv = $("#grid").jsGrid("exportData", {
     includeHeaders: true, //Include header row in output
     encapsulate: true, //Surround each field with qoutation marks; needed for some systems
     newline: "\r\n", //Newline character to use
-    
+
     //Takes each item and returns true if it should be included in output.
     //Executed only on the records within the given subset above.
     filter: function(item){return true},
-    
+
     //Transformations are a way to modify the display value of the output.
     //Provide a key of the field name, and a function that takes the current value.
     transformations: {
@@ -980,10 +1045,10 @@ Opens the page of specified index.
 
 ### option(optionName, [optionValue])
 Gets or sets the value of an option.
- 
+
 **optionName** is the name of the option.
 
-**optionValue** is the new option value to set. 
+**optionValue** is the new option value to set.
 
 If `optionValue` is not specified, then the value of the option `optionName` will be returned.
 
@@ -1007,8 +1072,8 @@ $("#grid").jsGrid("refresh");
 ```
 
 ### render(): `Promise`
-Performs complete grid rendering. If option `autoload` is `true` calls `controller.loadData`. The state of the grid like current page and sorting is retained. 
-Returns jQuery promise resolved when data loading is completed. If auto-loading is disabled the promise is instantly resolved.   
+Performs complete grid rendering. If option `autoload` is `true` calls `controller.loadData`. The state of the grid like current page and sorting is retained.
+Returns jQuery promise resolved when data loading is completed. If auto-loading is disabled the promise is instantly resolved.
 
 ```javascript
 
@@ -1019,7 +1084,7 @@ $("#grid").jsGrid("render").done(function() {
 ```
 
 ### reset()
-Resets the state of the grid. Goes to the first data page, resets sorting, and then calls `refresh`.  
+Resets the state of the grid. Goes to the first data page, resets sorting, and then calls `refresh`.
 
 ```javascript
 
@@ -1031,7 +1096,7 @@ $("#grid").jsGrid("reset");
 > version added: 1.3
 
 Gets the row jQuery element corresponding to the item.
- 
+
 **item** is the item corresponding to the row.
 
 ```javascript
@@ -1044,8 +1109,8 @@ var $row = $("#grid").jsGrid("rowByItem", item);
 Performs filtering of the grid.
 Returns jQuery promise resolved when data loading is completed.
 It resets current sorting and paging unlike the `loadData` method.
- 
-**filter** is a filter to pass to `controller.loadData`. 
+
+**filter** is a filter to pass to `controller.loadData`.
 
 If `filter` is not specified the current filter (filtering row values) will be applied.
 
@@ -1058,6 +1123,17 @@ $("#grid").jsGrid("search");
 $("#grid").jsGrid("search", { Name: "John" }).done(function() {
     console.log("filtering completed");
 });
+
+```
+
+<span style="color:red">### setSelectedItems(selectedItems)</span>
+Sets selected rows.
+
+**selectedItems** is array of the plain object.
+
+```javascript
+
+$("#grid").jsGrid("setSelectedItems", selectedItems);
 
 ```
 
@@ -1079,7 +1155,7 @@ $("#grid").jsGrid("showNextPages");
 
 ```
 
-### sort(sortConfig|field, [order]): `Promise`
+### sort(sortConfig|field, [order], <span style="color:red"">[field2]</span>, <span style="color:red"">[order2]</span>): `Promise`
 Sorts grid by specified field.
 Returns jQuery promise resolved when sorting is completed.
 
@@ -1088,6 +1164,10 @@ Returns jQuery promise resolved when sorting is completed.
 **field** is the field to sort by. It could be zero-based field index or field name or field reference
 
 **order** is the sorting order. Accepts the following values: "asc"|"desc"
+
+<span style="color:red"">**field2** is the 2nd field to sort by in case of 1st field values are same. It could be zero-based field index or field name or field reference</span>
+
+<span style="color:red"">**order2** is the 2nd sorting order. Accepts the following values: "asc"|"desc"</span>
 
 If `order` is not specified, then data is sorted in the reversed to current order, when grid is already sorted by the same field. Or `"asc"` for sorting by another field.
 
@@ -1111,7 +1191,7 @@ $("#grid").jsGrid("sort", myField, "asc").done(function() {
 ### updateItem([item|$row|rowNode], [editedItem]): `Promise`
 Updates item and row of the grid.
 Returns jQuery promise resolved when update is completed.
- 
+
 **item|$row|rowNode** is the reference to the item or the row jQueryElement or the row DomNode.
 
 **editedItem** is the changed item to pass to `controller.updateItem`.
@@ -1187,9 +1267,9 @@ The following callbacks are supported:
     onDataLoading: function(args) {},    // before controller.loadData
     onDataLoaded: function(args) {},     // on done of controller.loadData
     onDataExporting: function() {},      // before data export
-    
+
     onInit: function(args) {},           // after grid initialization 
-    
+
     onItemInserting: function(args) {},  // before controller.insertItem
     onItemInserted: function(args) {},   // on done of controller.insertItem
     onItemUpdating: function(args) {},   // before controller.updateItem
@@ -1197,14 +1277,20 @@ The following callbacks are supported:
     onItemDeleting: function(args) {},   // before controller.deleteItem
     onItemDeleted: function(args) {},    // on done of controller.deleteItem
     onItemInvalid: function(args) {},    // after item validation, in case data is invalid
-    
+    <span style="color:red">onItemSelected</span>: function(args) {},    // after item selected
+    <span style="color:red">onItemSonItemConfirmDeleteelected</span>: function(args) {},    // after delete button clicked.
+    <span style="color:red">onInitFilter</span>: function(args) {},    // after initialize filter row
+    <span style="color:red">onFilterChanged</span>: function(args) {},    // after filter value changed
+    <span style="color:red">onInitFieldWidth</span>: function(args) {},    // after initialize column header width
+    <span style="color:red">onFieldWidthChanged</span>: function(args) {},    // after column header width changed
+
     onError: function(args) {},          // on fail of any controller call
-    
+
     onOptionChanging: function(args) {}, // before changing the grid option
     onOptionChanged: function(args) {},  // after changing the grid option
-    
+
     onPageChanged: function(args) {},    // after changing the current page
-    
+
     onRefreshing: function(args) {},     // before grid refresh
     onRefreshed: function(args) {},      // after grid refresh
 }
@@ -1225,7 +1311,7 @@ Has the following arguments:
 
 ```
 
-#### Cancel Data Loading 
+#### Cancel Data Loading
 > version added: 1.2
 
 To cancel data loading set `args.cancel = true`.
@@ -1236,7 +1322,7 @@ In the following example loading is canceled when the filter has empty 'name' fi
 
 $("#grid").jsGrid({
     ...
-    
+
     onDataLoading: function(args) {
         // cancel loading data if 'name' is empty
         if(args.filter.name === "") {
@@ -1256,7 +1342,7 @@ Has the following arguments:
 
 {
     grid                // grid instance
-    data                // load result (array of items or data structure for loading by page scenario) 
+    data                // load result (array of items or data structure for loading by page scenario)
 }
 
 ```
@@ -1267,7 +1353,7 @@ In the following example the loaded data is written to the browser console.
 
 $("#grid").jsGrid({
     ...
-    
+
     onDataLoaded: function(args) {
         console.log(args.data);
     }
@@ -1278,7 +1364,7 @@ $("#grid").jsGrid({
 ### onInit
 > version added: 1.5
 
-Fires after grid initialization right before rendering. Usually used to get grid instance. 
+Fires after grid initialization right before rendering. Usually used to get grid instance.
 
 Has the following arguments:
 
@@ -1298,7 +1384,7 @@ var gridInstance;
 
 $("#grid").jsGrid({
     ...
-    
+
     onInit: function(args) {
         gridInstance = args.grid;
     }
@@ -1336,7 +1422,7 @@ Has the following arguments:
 
 ```
 
-#### Cancel Item Deletion 
+#### Cancel Item Deletion
 > version added: 1.2
 
 To cancel item deletion set `args.cancel = true`. This allows to do a validation before performing the actual deletion.
@@ -1347,7 +1433,7 @@ In the following example the deletion of items marked as `protected` is canceled
 
 $("#grid").jsGrid({
     ...
-    
+
     onItemDeleting: function(args) {
         // cancel deletion of the item with 'protected' field
         if(args.item.protected) {
@@ -1393,7 +1479,7 @@ Has the following arguments:
 
 ```
 
-#### Cancel Item Editing 
+#### Cancel Item Editing
 To cancel item editing set `args.cancel = true`. This allows to prevent row from editing conditionally.
 
 In the following example the editing of the row for item with 'ID' = 0 is canceled:
@@ -1402,9 +1488,9 @@ In the following example the editing of the row for item with 'ID' = 0 is cancel
 
 $("#grid").jsGrid({
     ...
-    
+
     onItemEditing: function(args) {
-        // cancel editing of the row of item with field 'ID' = 0 
+        // cancel editing of the row of item with field 'ID' = 0
         if(args.item.ID === 0) {
             args.cancel = true;
         }
@@ -1428,7 +1514,7 @@ Has the following arguments:
 
 ```
 
-#### Cancel Item Insertion 
+#### Cancel Item Insertion
 > version added: 1.2
 
 To cancel item insertion set `args.cancel = true`. This allows to do a validation before performing the actual insertion.
@@ -1439,7 +1525,7 @@ In the following example insertion of items with the 'name' specified is allowed
 
 $("#grid").jsGrid({
     ...
-    
+
     onItemInserting: function(args) {
         // cancel insertion of the item with empty 'name' field
         if(args.item.name === "") {
@@ -1488,7 +1574,7 @@ The following handler prints errors on the console
 
 $("#grid").jsGrid({
     ...
-    
+
     onItemInvalid: function(args) {
         // prints [{ field: "Name", message: "Enter client name" }]
         console.log(args.errors);
@@ -1514,7 +1600,7 @@ Has the following arguments:
 
 ```
 
-#### Cancel Item Update 
+#### Cancel Item Update
 > version added: 1.2
 
 To cancel item update set `args.cancel = true`. This allows to do a validation before performing the actual update.
@@ -1525,7 +1611,7 @@ In the following example update of items with the 'name' specified is allowed:
 
 $("#grid").jsGrid({
     ...
-    
+
     onItemUpdating: function(args) {
         // cancel update of the item with empty 'name' field
         if(args.item.name === "") {
@@ -1607,7 +1693,7 @@ In the following example we print the current page index in the browser console 
 
 $("#grid").jsGrid({
     ...
-    
+
     onPageChanged: function(args) {
         console.log(args.pageIndex);
     }
@@ -1660,7 +1746,7 @@ A controller should implement the following methods:
 
 ```
 
-Asynchronous controller methods should return a Promise, resolved once the request is completed. 
+Asynchronous controller methods should return a Promise, resolved once the request is completed.
 Starting v1.5 jsGrid supports standard JavaScript Promise/A, earlier versions support only jQuery.Promise.
 
 For instance the controller for typical REST service might look like:
@@ -1675,7 +1761,7 @@ For instance the controller for typical REST service might look like:
             data: filter
         });
     },
-    
+
     insertItem: function(item) {
         return $.ajax({
             type: "POST",
@@ -1683,7 +1769,7 @@ For instance the controller for typical REST service might look like:
             data: item
         });
     },
-    
+
     updateItem: function(item) {
         return $.ajax({
             type: "PUT",
@@ -1691,7 +1777,7 @@ For instance the controller for typical REST service might look like:
             data: item
         });
     },
-    
+
     deleteItem: function(item) {
         return $.ajax({
             type: "DELETE",
@@ -1731,9 +1817,9 @@ When grid sorting is enabled, `filter` includes two more parameters:
 ```
 
 Method should return `dataResult` or jQuery promise that will be resolved with `dataResult`.
-  
+
 **dataResult** depends on `pageLoading`. When `pageLoading` is `false` (by default), then data result is a plain javascript array of objects.
-If `pageLoading` is `true` data result should have following structure 
+If `pageLoading` is `true` data result should have following structure
 
 ```javascript
 
@@ -1747,8 +1833,8 @@ If `pageLoading` is `true` data result should have following structure
 ### insertItem(item): `Promise|insertedItem`
 Called on item insertion.
 
-Method should return `insertedItem` or jQuery promise that will be resolved with `insertedItem`. 
-If no item is returned, inserting item will be used as inserted item. 
+Method should return `insertedItem` or jQuery promise that will be resolved with `insertedItem`.
+If no item is returned, inserting item will be used as inserted item.
 
 **item** is the item to be inserted.
 
@@ -1776,7 +1862,7 @@ If deletion is asynchronous, method should return jQuery promise that will be re
 
 1. `validate: "validatorName"`
 
-**validatorName** - is a string key of the validator in the `jsGrid.validators` registry. The registry can be easily extended. See available [built-in validators here](#built-in-validators). 
+**validatorName** - is a string key of the validator in the `jsGrid.validators` registry. The registry can be easily extended. See available [built-in validators here](#built-in-validators).
 
 In the following example the `required` validator is applied:
 
@@ -1784,7 +1870,7 @@ In the following example the `required` validator is applied:
 
 $("#grid").jsGrid({
     ...
-    
+
     fields: [{ type: "text", name: "FieldName", validate: "required" }]
 });
 
@@ -1793,11 +1879,11 @@ $("#grid").jsGrid({
 2. `validate: validationConfig`
 
 **validateConfig** - is a plain object of the following structure:
- 
+
 ```javascript
 {
-    validator: string|function(value, item, param), // built-in validator name or custom validation function 
-    message: string|function,                       // validation message or a function(value, item) returning validation message 
+    validator: string|function(value, item, param), // built-in validator name or custom validation function
+    message: string|function,                       // validation message or a function(value, item) returning validation message
     param: any                                      // a plain object with parameters to be passed to validation function
 }
 ```
@@ -1808,10 +1894,10 @@ In the following example the `range` validator is applied with custom validation
 
 $("#grid").jsGrid({
     ...
-    
-    fields: [{ 
-        type: "number", 
-        name: "Age", 
+
+    fields: [{
+        type: "number",
+        name: "Age",
         validate: {
             validator: "range",
             message: function(value, item) {
@@ -1826,7 +1912,7 @@ $("#grid").jsGrid({
 
 3. `validate: validateArray`
 
-**validateArray** - is an array of validators. It can contain 
+**validateArray** - is an array of validators. It can contain
 
  * `string` - validator name
  * `Object` - validator configuration of structure `{ validator, message, param }`
@@ -1838,15 +1924,15 @@ In the following example the field has three validators: `required`, `range`, an
 
 $("#grid").jsGrid({
     ...
-    
-    fields: [{ 
-        type: "number", 
-        name: "Age", 
+
+    fields: [{
+        type: "number",
+        name: "Age",
         validate: [
             "required",
             { validator: "range", param: [21, 80] },
             function(value, item) {
-                return item.IsRetired ? value > 55 : true; 
+                return item.IsRetired ? value > 55 : true;
             }
         ]
     }]
@@ -1868,12 +1954,12 @@ In the following example the field has custom validation function:
 
 $("#grid").jsGrid({
     ...
-    
-    fields: [{ 
-        type: "text", 
-        name: "Phone", 
+
+    fields: [{
+        type: "text",
+        name: "Phone",
         validate: function(value, item) {
-            return value.length == 10 && phoneBelongsToCountry(value, item.Country); 
+            return value.length == 10 && phoneBelongsToCountry(value, item.Country);
         }
     }]
 });
@@ -1898,7 +1984,7 @@ The `jsGrid.validators` object contains all built-in validators. The key of the 
 ### Custom Validators
 
 To define a custom validator just add it to the `jsGrid.validators` object.
- 
+
 In the following example a custom validator `time` is registered:
 
 ```javascript
@@ -1909,7 +1995,7 @@ In the following example a custom validator `time` is registered:
             return /^([01]\d|2[0-3]|[0-9])(:[0-5]\d){1,2}$/.test(value);
         }
     }
-    
+
 ```
 
 
@@ -1926,7 +2012,7 @@ jsGrid.locales.my_lang = {
     // localization config goes here
     ...
 };
-    
+
 ```
 
 Here is how localization config looks like for Spanish [i18n/es.js](src/i18n/es.js).
@@ -1982,7 +2068,7 @@ var clients = [{
 jsGrid.sortStrategies.client = function(index1, index2) {
     var client1 = clients[index1];
     var client2 = clients[index2];
-    return client1.Name.localeCompare(client2.Name) 
+    return client1.Name.localeCompare(client2.Name)
         || client1.Age - client2.Age;
 };
 
@@ -2008,12 +2094,12 @@ Worth to mention, that if you need particular sorting only once, you can just in
 {
     fields: [
       ...
-      { 
-          name: "Index", 
+      {
+          name: "Index",
           sorter: function(index1, index2) {
               var client1 = clients[index1];
               var client2 = clients[index2];
-              return client1.Name.localeCompare(client2.Name) 
+              return client1.Name.localeCompare(client2.Name)
                   || client1.Age - client2.Age;
           }
       },
@@ -2024,21 +2110,21 @@ Worth to mention, that if you need particular sorting only once, you can just in
 
 ## Load Strategies
 
-The behavior of the grid regarding data source interaction is defined by load strategy. 
+The behavior of the grid regarding data source interaction is defined by load strategy.
 
-The load strategy has the following methods: 
+The load strategy has the following methods:
 
 ```javascript
 {
     firstDisplayIndex: function() {},                        // returns the index of the first displayed item
     lastDisplayIndex: function() {},                         // returns the index of the last displayed item
     itemsCount: function() {},                               // returns the total amount of grid items
-    
+
     openPage: function(index) {},                            // handles opening of the particular page
     loadParams: function() {},                               // returns additional parameters for controller.loadData method
     sort: function() {},                                     // handles sorting of data in the grid, should return a Promise
     reset: function() {},                                    // handles grid refresh on grid reset with 'reset' method call, should return a Promise
-    
+
     finishLoad: function(loadedData) {},                     // handles the finish of loading data by controller.loadData
     finishInsert: function(insertedItem) {},                 // handles the finish of inserting item by controller.insertItem
     finishDelete: function(deletedItem, deletedItemIndex) {} // handles the finish of deleting item by controller.deleteItem
@@ -2060,7 +2146,7 @@ It provides the following behavior:
 - **loadParams** returns empty object, since no extra load params are needed
 - **sort** sorts data items and refreshes the grid calling `grid.refresh`
 - **reset** calls `grid.refresh` method to refresh the grid
-- **finishLoad** puts the data coming from `controller.loadData` into the option `data` of the grid 
+- **finishLoad** puts the data coming from `controller.loadData` into the option `data` of the grid
 - **finishInsert** pushes new inserted item into the option `data` and refreshes the grid
 - **finishDelete** removes deleted item from the option `data` and resets the grid
 
@@ -2077,7 +2163,7 @@ It provides the following behavior:
 - **loadParams** returns an object with the structure `{ pageIndex, pageSize }` to provide server with paging info
 - **sort** calls `grid.loadData` to load sorted data from the server
 - **reset** calls `grid.loadData` method to refresh the data
-- **finishLoad** saves `itemsCount` returned by server and puts the `data` into the option `data` of the grid 
+- **finishLoad** saves `itemsCount` returned by server and puts the `data` into the option `data` of the grid
 - **finishInsert** calls `grid.search` to reload the data
 - **finishDelete** calls `grid.search` to reload the data
 
@@ -2104,14 +2190,14 @@ MyCustomDirectLoadStrategy.prototype.finishDelete = function(deletedItem, delete
 
 // use custom strategy in grid config
 $("#grid").jsGrid({
-    
+
     loadStrategy: function() {
         return new MyCustomDirectLoadStrategy(this);
     },
-    
+
     ...
-    
-}); 
+
+});
 
 ```
 
@@ -2133,11 +2219,11 @@ This simple example prints messages to console instead of showing load indicator
 ```javascript
 {
     loadIndicator: {
-        show: function() { 
+        show: function() {
             console.log("loading started");
         },
         hide: function() {
-            console.log("loading finished"); 
+            console.log("loading finished");
         }
     }
 }
@@ -2159,11 +2245,11 @@ The similar example printing messages to console shows how to configure loading 
 {
     loadIndicator: function(config) {
         return {
-            show: function() { 
+            show: function() {
                 console.log("loading started: " + config.message);
             },
             hide: function() {
-                console.log("loading finished"); 
+                console.log("loading finished");
             }
         };
     }
@@ -2179,7 +2265,7 @@ This example shows how to use [spin.js](http://fgnass.github.io/spin.js/) to ind
     loadIndicator: function(config) {
         var container = config.container[0];
         var spinner = new Spinner();
-    
+
         return {
             show: function() {
                 spinner.spin(container);

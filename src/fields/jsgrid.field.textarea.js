@@ -7,25 +7,41 @@
     }
 
     TextAreaField.prototype = new TextField({
+        rows: undefined,
 
         insertTemplate: function() {
             if(!this.inserting)
                 return "";
 
-            return this.insertControl = this._createTextArea();
+            var $result = this.insertControl = this._createTextArea();
+            if (this.editable ===false) {
+                $result.attr("readonly", true);
+            }
+            if (this.defaultValue !== undefined) {
+                $result.val(this.defaultValue);
+            }
+            return $result;
         },
 
-        editTemplate: function(value) {
+        editTemplate: function(value, item) {
             if(!this.editing)
                 return this.itemTemplate.apply(this, arguments);
 
             var $result = this.editControl = this._createTextArea();
+            if (this.editable ===false || (this.editableFlagField && !item[this.editableFlagField])) {
+                $result.attr("readonly", true);
+            }
             $result.val(value);
             return $result;
         },
 
         _createTextArea: function() {
-            return $("<textarea>").prop("readonly", !!this.readOnly);
+            var classes = jsGrid.fieldsClasses.textarea ? " class='" + jsGrid.fieldsClasses.textarea + "'" : "";
+            $result = $("<textarea" + classes + ">");
+            if (this.rows !== undefined) {
+                $result.attr("rows", this.rows);
+            }
+            return $result;
         }
     });
 

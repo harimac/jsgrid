@@ -19,11 +19,23 @@
         },
 
         number: function(n1, n2) {
-            return n1 - n2;
+          if (!n1 && !n2)
+            return 0;
+          else if (!n1)
+            return -1;
+          else if (!n2)
+            return 1;
+          return n1 - n2;
         },
 
         date: function(dt1, dt2) {
-            return dt1 - dt2;
+          if (!dt1 && !dt2)
+            return 0;
+          else if (!dt1)
+            return -1;
+          else if (!dt2)
+            return 1;
+          return dt1 - dt2;
         },
 
         numberAsString: function(n1, n2) {

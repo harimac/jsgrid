@@ -17,7 +17,7 @@
                 if(rule.validator(args.value, args.item, rule.param))
                     return;
 
-                var errorMessage = $.isFunction(rule.message) ? rule.message(args.value, args.item) : rule.message;
+                var errorMessage = $.isFunction(rule.message) ? rule.message(args.value, args.item) : rule.message.replace("{name}", args.name);
                 errors.push(errorMessage);
             });
 
@@ -71,35 +71,35 @@
 
     var validators = {
         required: {
-            message: "Field is required",
+            message: "Field '{name}' is required",
             validator: function(value) {
                 return value !== undefined && value !== null && value !== "";
             }
         },
 
         rangeLength: {
-            message: "Field value length is out of the defined range",
+            message: "Field '{name}' value length is out of the defined range",
             validator: function(value, _, param) {
                 return value.length >= param[0] && value.length <= param[1];
             }
         },
 
         minLength: {
-            message: "Field value is too short",
+            message: "Field '{name}' value is too short",
             validator: function(value, _, param) {
                 return value.length >= param;
             }
         },
 
         maxLength: {
-            message: "Field value is too long",
+            message: "Field '{name}' value is too long",
             validator: function(value, _, param) {
                 return value.length <= param;
             }
         },
 
         pattern: {
-            message: "Field value is not matching the defined pattern",
+            message: "Field '{name}' value is not matching the defined pattern",
             validator: function(value, _, param) {
                 if(typeof param === "string") {
                     param = new RegExp("^(?:" + param + ")$");
@@ -109,21 +109,21 @@
         },
 
         range: {
-            message: "Field value is out of the defined range",
+            message: "Field '{name}' value is out of the defined range",
             validator: function(value, _, param) {
                 return value >= param[0] && value <= param[1];
             }
         },
 
         min: {
-            message: "Field value is too small",
+            message: "Field '{name}' value is too small",
             validator: function(value, _, param) {
                 return value >= param;
             }
         },
 
         max: {
-            message: "Field value is too large",
+            message: "Field '{name}' value is too large",
             validator: function(value, _, param) {
                 return value <= param;
             }
