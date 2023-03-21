@@ -23,17 +23,17 @@
             $result.attr("placeholder", this.filter_placeholder);
             $result.attr("title", this.filter_placeholder);
             var eventArgs = {
-              columnName: this.name,
-              field: this
+                columnName: this.name,
+                field: this
             };
             grid._callEventHandler(grid.onInitFilter, eventArgs);
             if(this.autosearch) {
                 $result.on("input", function(e) {
-                  var eventArgs2 = {
-                    columnName: this.name,
-                    value: this.filterControl.val()
-                  }
-                  grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                    var eventArgs2 = {
+                        columnName: this.name,
+                        value: this.filterControl.val()
+                    }
+                    grid._callEventHandler(grid.onFilterChanged, eventArgs2);
 
                     //if(e.which === 13) {
                         grid.search();
@@ -79,29 +79,29 @@
             if (this.extendedFilter) {
                 var filterValue = this.filterControl.val();
                 if (!filterValue)
-                  return null;
+                    return null;
                 filterValue = filterValue.replace(/^\s+|\s+$/g,'');
                 filterValue = filterValue.split(/\s/).join('|');
                 if (filterValue.indexOf("*") > -1) {
-                  filterValue = "^(" + filterValue.replace(/\*/g, ".*") + ")$";
+                    filterValue = "^(" + filterValue.replace(/\*/g, ".*") + ")$";
                 }
                 return new RegExp(filterValue, "i");
             }
             return this.filterControl.val();
         },
         setFilterValue: function(newValue) {
-          if (this.filterControl !== null && this.filterControl !== undefined) {
-            var curValue = this.filterControl.val() ? this.filterControl.val() : undefined;
-            if (curValue !== newValue) {
-              this.filterControl.val(newValue);
-              var eventArgs2 = {
-                columnName: this.name,
-                value: newValue
-              }
-              var grid = this._grid;
-              grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+            if (this.filterControl !== null && this.filterControl !== undefined) {
+                var curValue = this.filterControl.val() ? this.filterControl.val() : undefined;
+                if (curValue !== newValue) {
+                this.filterControl.val(newValue);
+                var eventArgs2 = {
+                    columnName: this.name,
+                    value: newValue
+                }
+                var grid = this._grid;
+                grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                }
             }
-          }
         },
 
         insertValue: function() {

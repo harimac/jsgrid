@@ -16,8 +16,8 @@
         }
 
         this.sortCollator = new Intl.Collator(window.navigator.userLanguage || window.navigator.language, {
-              numeric: true,
-              sensitivity: 'base'
+                numeric: true,
+                sensitivity: 'base'
             });
         //this.sorter = this.valueType;
 
@@ -67,18 +67,18 @@
                 $result = this.filterControl = this._createSelect("filter");
             $result.attr("title", this.filter_placeholder);
             var eventArgs = {
-              columnName: this.name,
-              field: this
+                columnName: this.name,
+                field: this
             }
             grid._callEventHandler(grid.onInitFilter, eventArgs);
             if(this.autosearch) {
                 $result.on("change", function(e) {
-                  var eventArgs2 = {
-                    columnName: this.name,
-                    value: this.filterValue()
-                  }
-                  grid._callEventHandler(grid.onFilterChanged, eventArgs2);
-                  grid.search();
+                    var eventArgs2 = {
+                        columnName: this.name,
+                        value: this.filterValue()
+                    }
+                    grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                    grid.search();
                 }.bind(this));
             }
 
@@ -127,18 +127,18 @@
         },
 
         setFilterValue: function(newValue) {
-          if (this.filterControl !== null && this.filterControl !== undefined) {
-            var curValue = this.filterValue();
-            if (curValue !== newValue) {
-              this.filterControl.val(newValue);
-              var eventArgs2 = {
-                columnName: this.name,
-                value: newValue
-              }
-              var grid = this._grid;
-              grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+            if (this.filterControl !== null && this.filterControl !== undefined) {
+                var curValue = this.filterValue();
+                if (curValue !== newValue) {
+                this.filterControl.val(newValue);
+                var eventArgs2 = {
+                    columnName: this.name,
+                    value: newValue
+                }
+                var grid = this._grid;
+                grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                }
             }
-          }
         },
 
         insertValue: function() {
@@ -159,11 +159,11 @@
             var empties = values.filter((val) => val === undefined || val === null || val === "");
             var counts = new Array(this.items.length).fill(0);//this.items.slice(0, this.items.length);
             values.forEach(function(val) {
-              for (var i = 0; i < this.items.length; i++) {
-                if (this.items[i][this.valueField] === val) {
-                  counts[i]++;
+                for (var i = 0; i < this.items.length; i++) {
+                    if (this.items[i][this.valueField] === val) {
+                    counts[i]++;
+                    }
                 }
-              }
             }.bind(this));
             this.summaryControl.children('option').remove();
             $("<option>").text(this.summaryLabel).css("display", "none").appendTo(this.summaryControl);
@@ -173,14 +173,14 @@
                 var value = this.valueField ? item[this.valueField] : index,
                     text = this.textField ? item[this.textField] : item;
                 if (text !== undefined && text !== null && text !== "") {
-                  $("<option>")
-                      .attr("value", value)
-                      .attr("disabled", "disabled")
-                      .text(text + " (" + counts[index] + ")")
-                      .appendTo(this.summaryControl);
-                  if (tooltip != "")
-                    tooltip += "\r\n";
-                  tooltip += text + " (" + counts[index] + ")";
+                    $("<option>")
+                        .attr("value", value)
+                        .attr("disabled", "disabled")
+                        .text(text + " (" + counts[index] + ")")
+                        .appendTo(this.summaryControl);
+                    if (tooltip != "")
+                        tooltip += "\r\n";
+                    tooltip += text + " (" + counts[index] + ")";
                 }
             }.bind(this));
             this.summaryControl.attr("title", tooltip);
@@ -193,10 +193,10 @@
                 textField = this.textField,
                 selectedIndex = this.selectedIndex;
             if (mode !== "filter" && this.allowEmpty) {
-              var $option = $("<option>")
-                  .attr("value", "")
-                  .text("")
-                  .appendTo($result);
+                var $option = $("<option>")
+                    .attr("value", "")
+                    .text("")
+                    .appendTo($result);
             }
             $.each(this.items, function(index, item) {
                 var value = valueField ? item[valueField] : index,

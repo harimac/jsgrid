@@ -69,10 +69,10 @@
         },
 
         summaryValue: function(values) {
-          var empties = values.filter((val) => val === undefined || val === null || val === "");
-          var text = this.emptyLabel + ": " + empties.length + " " + this.rowsLabel;
-          this.summaryControl.html(text);
-          this.summaryControl.attr("title", text);
+            var empties = values.filter((val) => val === undefined || val === null || val === "");
+            var text = this.emptyLabel + ": " + empties.length + " " + this.rowsLabel;
+            this.summaryControl.html(text);
+            this.summaryControl.attr("title", text);
         },
 
         _getSortingFunc: function() {

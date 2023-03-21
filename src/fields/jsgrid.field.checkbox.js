@@ -39,8 +39,8 @@
             });
 
             var eventArgs = {
-              columnName: this.name,
-              field: this
+                columnName: this.name,
+                field: this
             }
             grid._callEventHandler(grid.onInitFilter, eventArgs);
 
@@ -64,8 +64,8 @@
             if(this.autosearch) {
                 $result.on("click", function() {
                     var eventArgs2 = {
-                      columnName: this.name,
-                      value: this.filterValue()
+                        columnName: this.name,
+                        value: this.filterValue()
                     }
                     grid._callEventHandler(grid.onFilterChanged, eventArgs2);
                     grid.search();
@@ -115,30 +115,30 @@
                 : this.filterControl.is(":checked");
         },
         setFilterValue: function(newValue) {
-          if (this.filterControl === null || this.filterControl === undefined)
-            return;
-          var curValue = this.filterValue();
-          if (curValue !== newValue) {
-            if (newValue === null) {
-              this.filterControl.prop({
-                  readOnly: true,
-                  indeterminate: true
-              });
+            if (this.filterControl === null || this.filterControl === undefined)
+                return;
+            var curValue = this.filterValue();
+            if (curValue !== newValue) {
+                if (newValue === null) {
+                this.filterControl.prop({
+                    readOnly: true,
+                    indeterminate: true
+                });
+                }
+                else {
+                this.filterControl.prop({
+                    checked: newValue,
+                    readOnly: false,
+                    indeterminate: false
+                });
+                }
+                var eventArgs2 = {
+                columnName: this.name,
+                value: newValue
+                }
+                var grid = this._grid;
+                grid._callEventHandler(grid.onFilterChanged, eventArgs2);
             }
-            else {
-              this.filterControl.prop({
-                  checked: newValue,
-                  readOnly: false,
-                  indeterminate: false
-              });
-            }
-            var eventArgs2 = {
-              columnName: this.name,
-              value: newValue
-            }
-            var grid = this._grid;
-            grid._callEventHandler(grid.onFilterChanged, eventArgs2);
-          }
         },
 
         insertValue: function() {
@@ -153,12 +153,12 @@
             var empties = values.filter((val) => val === undefined || val === null || val === "");
             var counts = new Array(2).fill(0);//this.items.slice(0, this.items.length);
             values.forEach(function(val) {
-              if (val === true) {
-                counts[0]++;
-              }
-              else {
-                counts[1]++;
-              }
+                if (val === true) {
+                    counts[0]++;
+                }
+                else {
+                    counts[1]++;
+                }
             }.bind(this));
             this.summaryControl.children('option').remove();
             $("<option>").text(this.summaryLabel).css("display", "none").appendTo(this.summaryControl);

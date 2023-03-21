@@ -33,18 +33,18 @@
         },
 
         setFilterValue: function(newValue) {
-          if (this.filterControl !== null && this.filterControl !== undefined) {
-            var curValue = this.filterValue();
-            if (curValue !== newValue) {
-              this.filterControl.val(newValue);
-              var eventArgs2 = {
-                columnName: this.name,
-                value: newValue
-              }
-              var grid = this._grid;
-              grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+            if (this.filterControl !== null && this.filterControl !== undefined) {
+                var curValue = this.filterValue();
+                if (curValue !== newValue) {
+                    this.filterControl.val(newValue);
+                    var eventArgs2 = {
+                        columnName: this.name,
+                        value: newValue
+                    }
+                    var grid = this._grid;
+                    grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                }
             }
-          }
         },
 
         insertValue: function() {
@@ -60,55 +60,55 @@
         },
 
         _computeSummaryValues(values) {
-          var sum = 0;
-          var validCount = 0;
-          var max = values.reduce((previous, current) => (current !== undefined && current !== null ? Math.max(previous, current) : previous));
-          var min = max;
-          values.forEach(function(val) {
-            if (val !== undefined && val !== null) {
-              sum += val;
-              validCount++;
-              if (val < min)
-                min = val;
-            }
-          });
-          var mean = null;
-          var stdDev = null;
-          if (validCount > 0) {
-            mean = sum / validCount;
-            var variance = 0;
+            var sum = 0;
+            var validCount = 0;
+            var max = values.reduce((previous, current) => (current !== undefined && current !== null ? Math.max(previous, current) : previous));
+            var min = max;
             values.forEach(function(val) {
-              if (val !== undefined && val !== null) {
-                variance += (val - mean) * (val - mean);
-              }
+                if (val !== undefined && val !== null) {
+                    sum += val;
+                    validCount++;
+                    if (val < min)
+                        mi= val;
+                }
             });
-            variance = variance / validCount;
-            stdDev = Math.sqrt(variance);
-          }
-          return {
-            count : validCount,
-            sum : sum,
-            max : max,
-            min : min,
-            mean : mean,
-            stdDev : stdDev
-          }
+            var mean = null;
+            var stdDev = null;
+            if (validCount > 0) {
+                mean = sum / validCount;
+                var variance = 0;
+                values.forEach(function(val) {
+                    if (val !== undefined && val !== null) {
+                        variance += (val - mean) * (val - mean);
+                    }
+                });
+                variance = variance / validCount;
+                stdDev = Math.sqrt(variance);
+            }
+            return {
+                count : validCount,
+                sum : sum,
+                max : max,
+                min : min,
+                mean : mean,
+                stdDev : stdDev
+            }
         },
         _number2string(num) {
-          var str = this.itemTemplate(num);
-          if (typeof(str) === "number")
-            str = str.toFixed(2);
-          return str;
+            var str = this.itemTemplate(num);
+            if (typeof(str) === "number")
+                str = str.toFixed(2);
+            return str;
         },
         summaryValue: function(values) {
-          var computed = this._computeSummaryValues(values);
-          var sumText = this.summaryLabel + ": " + this._number2string(computed.sum);
-          var meanText = this.meanLabel + ": " + this._number2string(computed.mean);
-          var minText = this.minimumLabel + ": " + this._number2string(computed.min);
-          var maxText = this.maximumLabel + ": " + this._number2string(computed.max);
-          var stdDevText = this.stdDevLabel + ": " + this._number2string(computed.stdDev);
-          this.summaryControl.html(this.summaryText(sumText, meanText, maxText, minText, stdDevText));
-          this.summaryControl.attr("title", this.summaryTooltipText(sumText, meanText, maxText, minText, stdDevText));
+            var computed = this._computeSummaryValues(values);
+            var sumText = this.summaryLabel + ": " + this._number2string(computed.sum);
+            var meanText = this.meanLabel + ": " + this._number2string(computed.mean);
+            var minText = this.minimumLabel + ": " + this._number2string(computed.min);
+            var maxText = this.maximumLabel + ": " + this._number2string(computed.max);
+            var stdDevText = this.stdDevLabel + ": " + this._number2string(computed.stdDev);
+            this.summaryControl.html(this.summaryText(sumText, meanText, maxText, minText, stdDevText));
+            this.summaryControl.attr("title", this.summaryTooltipText(sumText, meanText, maxText, minText, stdDevText));
         },
         summaryText(sumText, meanText, maxText, minText, stdDevText) {
             return sumText;

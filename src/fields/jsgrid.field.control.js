@@ -7,7 +7,7 @@
         this.includeInDataExport = false;
         this._configInitialized = false;
         if (!this.name)
-          this.name = "jsgrid-control";
+            this.name = "jsgrid-control";
     }
 
     ControlField.prototype = new Field({
@@ -180,11 +180,11 @@
         _createClearFilterButton: function() {
             return this._createGridButton(this.clearFilterButtonClass, this.clearFilterButtonTooltip, function(grid) {
                 grid._eachField(function(field) {
-                  var eventArgs = {
-      			    columnName: field.name,
-      			    value: null
-      			  }
-      			  grid._callEventHandler(grid.onFilterChanged, eventArgs);
+                    var eventArgs = {
+                        columnName: field.name,
+                        value: null
+                    }
+                    grid._callEventHandler(grid.onFilterChanged, eventArgs);
                 });
                 grid.clearFilter(true);
             });
@@ -234,9 +234,9 @@
         },
 
         summaryValue: function(values) {
-          var text = this.totalLabel + ": " + values.length + " " + this.rowsLabel;
-          this.summaryControl.html(text);
-          this.summaryControl.attr("title", text);
+            var text = this.totalLabel + ": " + values.length + " " + this.rowsLabel;
+            this.summaryControl.html(text);
+            this.summaryControl.attr("title", text);
         }
 
     });

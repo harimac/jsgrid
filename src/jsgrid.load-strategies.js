@@ -60,65 +60,65 @@
                     var sortFactor = grid._sortFactor(),
                         sortField = grid._sortField;
                     if (sortField !== undefined && sortField !== null) {
-	                  var res = this.binaryFind(insertedItem, grid.option("data"));
-                      if (!res.found)
-                        grid.option("data").splice(res.index, 0, insertedItem);
-                      else
-                        grid.option("data").splice(res.index+1, 0, insertedItem);
+                        var res = this.binaryFind(insertedItem, grid.option("data"));
+                        if (!res.found)
+                            grid.option("data").splice(res.index, 0, insertedItem);
+                        else
+                            grid.option("data").splice(res.index+1, 0, insertedItem);
                     }
                     else {
-                      grid.option("data").push(insertedItem);
+                        grid.option("data").push(insertedItem);
                     }
             }
 
             grid.refresh();
         },
         binaryFind: function (searchElement, sortedArray) {
-          var grid = this._grid;
-          var sortFactor = grid._sortFactor(),
-              sortField = grid._sortField;
-          var sortFactor2 = grid._sortFactor2(),
-              sortField2 = grid._sortField2;
-          var sortingFunc = function(item1, item2) {
-            var res = sortFactor * sortField.sortingFunc(item1 ? item1[sortField.name] : null, item2 ? item2[sortField.name] : null);
-            if (res == 0 && sortField2 !== undefined && sortField2 !== null) {
-              return sortFactor2 * sortField2.sortingFunc(item1 ? item1[sortField2.name] : null, item2 ? item2[sortField2.name] : null);
-            }
-            return res;
-          };
-          var minIndex = 0;
-          var maxIndex = sortedArray.length - 1;
-          var currentIndex;
-          var currentElement;
+            var grid = this._grid;
+            var sortFactor = grid._sortFactor(),
+                sortField = grid._sortField;
+            var sortFactor2 = grid._sortFactor2(),
+                sortField2 = grid._sortField2;
+            var sortingFunc = function(item1, item2) {
+                var res = sortFactor * sortField.sortingFunc(item1 ? item1[sortField.name] : null, item2 ? item2[sortField.name] : null);
+                if (res == 0 && sortField2 !== undefined && sortField2 !== null) {
+                return sortFactor2 * sortField2.sortingFunc(item1 ? item1[sortField2.name] : null, item2 ? item2[sortField2.name] : null);
+                }
+                return res;
+            };
+            var minIndex = 0;
+            var maxIndex = sortedArray.length - 1;
+            var currentIndex;
+            var currentElement;
 
-          while (minIndex <= maxIndex) {
-            currentIndex = (minIndex + maxIndex) / 2 | 0;
-            currentElement = sortedArray[currentIndex];
-            var compare = sortingFunc(searchElement, currentElement)
-            if (compare > 0) {
-              minIndex = currentIndex + 1;
+            while (minIndex <= maxIndex) {
+                currentIndex = (minIndex + maxIndex) / 2 | 0;
+                currentElement = sortedArray[currentIndex];
+                var compare = sortingFunc(searchElement, currentElement)
+                if (compare > 0) {
+                minIndex = currentIndex + 1;
+                }
+                else if (compare < 0) {
+                maxIndex = currentIndex - 1;
+                }
+                else {
+                return { // Modification
+                    found: true,
+                    index: currentIndex
+                };
+                }
             }
-            else if (compare < 0) {
-              maxIndex = currentIndex - 1;
-            }
-            else {
-              return { // Modification
-                found: true,
-                index: currentIndex
-              };
-            }
-          }
 
-          return { // Modification
-            found: false,
-            index: sortingFunc(searchElement, currentElement) > 0 ? currentIndex + 1 : currentIndex
-          };
+            return { // Modification
+                found: false,
+                index: sortingFunc(searchElement, currentElement) > 0 ? currentIndex + 1 : currentIndex
+            };
         },
         finishDelete: function(deletedItem, deletedItemIndex) {
             var grid = this._grid;
             if (deletedItemIndex > -1) {
-              grid.option("data").splice(deletedItemIndex, 1);
-              grid.reset();
+                grid.option("data").splice(deletedItemIndex, 1);
+                grid.reset();
             }
         }
     };
