@@ -26,6 +26,12 @@
                 rename: function(dest, src) {
                     return dest + "jsgrid-" + src;
                 }
+            },
+            src: {
+                expand: true,
+                cwd: "src/",
+                src: "jsgrid-theme-bootstrap.js",
+                dest: "dist/"
             }
         },
 
@@ -47,17 +53,30 @@
                     "src/fields/jsgrid.field.textarea.js",
                     "src/fields/jsgrid.field.select.js",
                     "src/fields/jsgrid.field.checkbox.js",
-                    "src/fields/jsgrid.field.control.js"
+                    "src/fields/jsgrid.field.control.js",
+                    "src/fields/jsgrid.field.spacer.js"
                 ],
                 dest: "dist/<%= pkg.name %>.js"
             },
-            css: {
+            css1: {
                 src: "css/jsgrid.css",
                 dest: "dist/<%= pkg.name %>.css"
             },
-            theme: {
+            css2: {
+                src: "css/jsgrid-compact.css",
+                dest: "dist/<%= pkg.name %>-compact.css"
+            },
+            theme1: {
                 src: "css/theme.css",
                 dest: "dist/<%= pkg.name %>-theme.css"
+            },
+            theme2: {
+                src: "css/theme-compact.css",
+                dest: "dist/<%= pkg.name %>-theme-compact.css"
+            },
+            theme3: {
+                src: "css/theme-bootstrap.css",
+                dest: "dist/<%= pkg.name %>-theme-bootstrap.css"
             }
         },
 
@@ -80,9 +99,13 @@
             options: {
                 deleteAfterEncoding : true
             },
-            theme: {
-                src: "<%= concat.theme.dest %>",
-                dest: "<%= concat.theme.dest %>"
+            theme1: {
+                src: "<%= concat.theme1.dest %>",
+                dest: "<%= concat.theme1.dest %>"
+            },
+            theme2: {
+                src: "<%= concat.theme2.dest %>",
+                dest: "<%= concat.theme2.dest %>"
             }
         },
 
@@ -93,6 +116,10 @@
             js: {
                 src: "<%= concat.js.dest %>",
                 dest: "dist/<%= pkg.name %>.min.js"
+            },
+            js1:{
+                src: "src/jsgrid-theme-bootstrap.js",
+                dest: "dist/jsgrid-theme-bootstrap.min.js"
             }
         },
 
@@ -100,13 +127,25 @@
             options : {
                 banner: banner
             },
-            css: {
-                src: "<%= concat.css.dest %>",
+            css1: {
+                src: "<%= concat.css1.dest %>",
                 dest: "dist/<%= pkg.name %>.min.css"
             },
-            theme: {
-                src: "<%= concat.theme.dest %>",
+            css2: {
+                src: "<%= concat.css2.dest %>",
+                dest: "dist/<%= pkg.name %>-compact.min.css"
+            },
+            theme1: {
+                src: "<%= concat.theme1.dest %>",
                 dest: "dist/<%= pkg.name %>-theme.min.css"
+            },
+            theme2: {
+                src: "<%= concat.theme2.dest %>",
+                dest: "dist/<%= pkg.name %>-theme-compact.min.css"
+            },
+            theme3: {
+                src: "<%= concat.theme3.dest %>",
+                dest: "dist/<%= pkg.name %>-theme-bootstrap.min.css"
             }
         },
 
@@ -118,7 +157,7 @@
 
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-concat");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-uglify-es");
     grunt.loadNpmTasks("grunt-image-embed");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-qunit");

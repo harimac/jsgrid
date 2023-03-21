@@ -1,47 +1,65 @@
 /*
  * jsGrid v1.5.3 (http://js-grid.com)
- * (c) 2016 Artem Tabalin
- * Licensed under MIT (https://github.com/tabalinas/jsgrid/blob/master/LICENSE)
+ * (c) 2023 Artem Tabalin
+ * Licensed under  ()
  */
 
 .jsgrid-grid-header,
 .jsgrid-grid-body,
+.jsgrid-grid-summary,
 .jsgrid-header-row > .jsgrid-header-cell,
+.jsgrid-summary-row > .jsgrid-summary-cell,
 .jsgrid-filter-row > .jsgrid-cell,
 .jsgrid-insert-row > .jsgrid-cell,
 .jsgrid-edit-row > .jsgrid-cell {
     border: 1px solid #e9e9e9;
 }
 
-.jsgrid-header-row > .jsgrid-header-cell {
+.jsgrid-header-row > .jsgrid-header-cell,
+.jsgrid-summary-row > .jsgrid-summary-cell {
     border-top: 0;
+}
+.jsgrid-hidden-summary {
+    border-top: 0;
+    border-bottom: 0;
 }
 
 .jsgrid-header-row > .jsgrid-header-cell,
+.jsgrid-summary-row > .jsgrid-summary-cell,
 .jsgrid-filter-row > .jsgrid-cell,
 .jsgrid-insert-row > .jsgrid-cell {
     border-bottom: 0;
 }
 
 .jsgrid-header-row > .jsgrid-header-cell:first-child,
+.jsgrid-summary-row > .jsgrid-summary-cell:first-child,
 .jsgrid-filter-row > .jsgrid-cell:first-child,
 .jsgrid-insert-row > .jsgrid-cell:first-child {
     border-left: none;
 }
 
 .jsgrid-header-row > .jsgrid-header-cell:last-child,
+.jsgrid-summary-row > .jsgrid-summary-cell:last-child,
 .jsgrid-filter-row > .jsgrid-cell:last-child,
 .jsgrid-insert-row > .jsgrid-cell:last-child {
     border-right: none;
 }
 
 .jsgrid-header-row .jsgrid-align-right,
-.jsgrid-header-row .jsgrid-align-left {
+.jsgrid-header-row .jsgrid-align-left,
+.jsgrid-summary-row .jsgrid-align-right,
+.jsgrid-summary-row .jsgrid-align-left {
     text-align: center;
 }
 
 .jsgrid-grid-header {
     background: #f9f9f9;
+}
+.jsgrid-grid-summary {
+    background: #d9d9d9;
+}
+.jsgrid-hidden-summary {
+    background: #e9e9e9;
 }
 
 .jsgrid-header-scrollbar {
@@ -54,8 +72,18 @@
     scrollbar-dark-shadow-color: #f1f1f1;
 }
 
+.jsgrid-summary-scrollbar {
+/*    scrollbar-arrow-color: #f1f1f1;
+    scrollbar-base-color: #f1f1f1;
+    scrollbar-3dlight-color: #f1f1f1;
+    scrollbar-highlight-color: #f1f1f1;
+    scrollbar-track-color: #f1f1f1;
+    scrollbar-shadow-color: #f1f1f1;
+    scrollbar-dark-shadow-color: #f1f1f1;*/
+}
+
 .jsgrid-header-scrollbar::-webkit-scrollbar {
-    visibility: hidden;
+    cursor: pointer;
 }
 
 .jsgrid-header-scrollbar::-webkit-scrollbar-track {
@@ -71,7 +99,7 @@
     background: #c4e2ff;
 }
 
-.jsgrid-header-sort:before {
+.jsgrid-header-sort > .jsgrid-header-title:before {
     content: " ";
     display: block;
     float: left;
@@ -80,22 +108,32 @@
     border-style: solid;
 }
 
-.jsgrid-header-sort-asc:before {
+.jsgrid-header-sort-asc > .jsgrid-header-title::before {
     border-width: 0 5px 5px 5px;
     border-color: transparent transparent #009a67 transparent;
 }
 
-.jsgrid-header-sort-desc:before {
+.jsgrid-header-sort-desc > .jsgrid-header-title:before {
     border-width: 5px 5px 0 5px;
     border-color: #009a67 transparent transparent transparent;
 }
 
 .jsgrid-grid-body {
     border-top: none;
+    border-bottom: none;
 }
 
 .jsgrid-cell {
     border: #f3f3f3 1px solid;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 0;
+}
+
+.jsgrid-cell.readonly > input {
+    border: 1px solid #dbdee0 !important;
+    color: #888;
 }
 
 .jsgrid-grid-body .jsgrid-row:first-child .jsgrid-cell,
@@ -122,6 +160,9 @@
 .jsgrid-header-row > .jsgrid-header-cell {
     background: #f9f9f9;
 }
+.jsgrid-header-row > .jsgrid-header-cell.jsgrid-spacer-field {
+    background: #fcfcfc;
+}
 
 .jsgrid-filter-row > .jsgrid-cell {
     background: #fcfcfc;
@@ -134,8 +175,24 @@
 .jsgrid-edit-row > .jsgrid-cell {
     background: #fdffe3;
 }
+.jsgrid-summary-row > .jsgrid-summary-cell.jsgrid-spacer-field {
+    background: #fcfcfc;
+}
+.jsgrid-summary-row select {
+    background: #d9d9d9;
+    font-size: 1em;
+    font-weight: 700;
+    border-width: 0px;
+}
+.jsgrid-summary-row select > option {
+    font-size: 1em;
+}
 
 .jsgrid-selected-row > .jsgrid-cell {
+    background: #6eb8ff;
+    border-color: #6eb8ff;
+}
+.jsgrid-hovered-row > .jsgrid-cell {
     background: #c4e2ff;
     border-color: #c4e2ff;
 }
@@ -146,7 +203,9 @@
 
 .jsgrid-invalid input,
 .jsgrid-invalid select,
-.jsgrid-invalid textarea {
+.jsgrid-invalid textarea,
+.jsgrid-invalid .bs-placeholder,
+.jsgrid-invalid .minicolors-input-swatch {
     background: #ffe3e5;
     border: 1px solid #ff808a;
 }
