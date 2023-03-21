@@ -36,8 +36,10 @@
         },
 
         _createTextArea: function() {
-            var classes = jsGrid.fieldsClasses.textarea ? " class='" + jsGrid.fieldsClasses.textarea + "'" : "";
-            $result = $("<textarea" + classes + ">");
+            $result = $("<textarea>");
+            if (jsGrid.fieldsClasses.textarea) {
+                $result.attr("class", jsGrid.fieldsClasses.textarea);
+            }
             if (this.rows !== undefined) {
                 $result.attr("rows", this.rows);
             }

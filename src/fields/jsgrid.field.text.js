@@ -113,20 +113,23 @@
         },
 
         _createTextBox: function() {
-            var classes = jsGrid.fieldsClasses.text ? " class='" + jsGrid.fieldsClasses.text + "'" : "";
-            return $("<input" + classes + ">").attr("type", "text");
+            var $result = $("<input>").attr("type", "text");
+            if (jsGrid.fieldsClasses.text) {
+                $result.attr("class", jsGrid.fieldsClasses.text);
+            }
+            return $result;
         }
     });
 
     jsGrid.fields.text = jsGrid.TextField = TextField;
     jsGrid.filterExtendedString = function(value, filter) {
-  		if (!filter)
-  			return true;
-      if (value === null || value === undefined)
-        return false;
-  		if ((typeof filter) === "string" )
-  			return value.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-  		return filter.test(value);
-  	};
+        if (!filter)
+            return true;
+        if (value === null || value === undefined)
+            return false;
+        if ((typeof filter) === "string" )
+            return value.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+        return filter.test(value);
+    };
 
 }(jsGrid, jQuery));

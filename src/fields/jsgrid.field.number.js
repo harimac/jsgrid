@@ -118,8 +118,10 @@
         },
 
         _createTextBox: function() {
-            var classes = jsGrid.fieldsClasses.input ? " class='" + jsGrid.fieldsClasses.input + "'" : "";
-            var $result = $("<input" + classes + ">").attr("type", "number");
+            var $result = $("<input>").attr("type", "number");
+            if (jsGrid.fieldsClasses.input) {
+                $result.attr("class", jsGrid.fieldsClasses.input);
+            }
             if (this.minValue !== undefined) {
                 $result.attr("min", this.minValue);
             }

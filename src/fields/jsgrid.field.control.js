@@ -214,9 +214,11 @@
 
         _createGridButton: function(cls, tooltip, clickHandler) {
             var grid = this._grid;
-            var classes = jsGrid.fieldsClasses.button ? " class='" + jsGrid.fieldsClasses.button + "'" : "";
-
-            return $("<button" + classes + ">").addClass(this.buttonClass)
+            var $result = $("<button>");
+            if (jsGrid.fieldsClasses.button) {
+                $result.attr("class", jsGrid.fieldsClasses.button);
+            }
+            return $result.addClass(this.buttonClass)
                 .addClass(cls)
                 .attr({
                     type: "button",

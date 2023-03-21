@@ -22,6 +22,10 @@ jsGrid is tunable and allows to customize appearance and components.
 
 ![compact grid](compact-grid.png)
 
+- Bootstrap theme.
+
+![Bootstrap theme grid](bootstrap-theme.png)
+
 ## Table of contents
 
 * [Demos](#demos)

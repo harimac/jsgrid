@@ -1,0 +1,29 @@
+.jsgrid-header-cell .btn-sm {
+  padding: 0.25rem 0.3rem;
+}
+.jsgrid-cell .btn-sm {
+  padding: 0.25rem 0.25rem;
+}
+
+.jsgrid-grid-header .table {
+  margin-bottom: 0rem;
+}
+.jsgrid-grid-header .table-sm th {
+    padding: 0rem;
+}
+.jsgrid-grid-header .table-sm th.jsgrid-header-cell {
+    text-align: center;
+}
+
+.jsgrid-grid-summary .table {
+  margin-bottom: 0rem;
+}
+.jsgrid-grid-summary .table-sm th {
+    padding: 0rem;
+}
+.jsgrid-grid-summary .table-sm th.jsgrid-summary-cell {
+    text-align: center;
+}
+//.jsgrid-summary-row select  {
+//  background: #e9ecef;
+//}
