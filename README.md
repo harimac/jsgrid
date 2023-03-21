@@ -12,6 +12,12 @@ jsGrid is tunable and allows to customize appearance and components.
 
 ![featured grid](features.png)
 
+## Main added features
+
+- **Cloumn header resizing**
+- **(Multi) Row selection**
+- **Summary row**
+
 ## Table of contents
 
 * [Demos](#demos)
