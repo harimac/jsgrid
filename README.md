@@ -111,24 +111,24 @@ The config object may contain following options (default values are specified be
     height: "auto",
 
     heading: true,
-    <span style="color:red">resizing: false</span>,
-    <span style="color:red">summarying: false</span>,
+    resizing: false,
+    summarying: false,
     filtering: false,
     inserting: false,
     editing: false,
-    <span style="color:red">editOnRowClick: false</span>,
+    editOnRowClick: false,
     selecting: true,
-    <span style="color:red">multiSelecting: false</span>,
+    multiSelecting: false,
     sorting: false,
     paging: false,
     pageLoading: false,
 
-    insertRowLocation: <span style="color:red">"sorted"</span>,
+    insertRowLocation: "sorted",
 
     rowClass: function(item, itemIndex) { ... },
     rowClick: function(args) { ... },
     rowDoubleClick: function(args) { ... },
-    <span style="color:red">rowContextmenu: function(args) { ... }</span>,
+    rowContextmenu: function(args) { ... },
 
     noDataContent: "Not found",
 
@@ -164,7 +164,7 @@ The config object may contain following options (default values are specified be
     filterRowRenderer: null,
     insertRowRenderer: null,
     editRowRenderer: null,
-    <span style="color:red">summaryRowRenderer: null</span>,
+    summaryRowRenderer: null,
     pagerRenderer: null
 }
 
@@ -198,22 +198,22 @@ General options peculiar to all field types:
     editing: true,
     sorting: true,
     sorter: "string",
-    <span style="color:red">resizing: true</span>,
-    <span style="color:red">editable: true</span>,
-    <span style="color:red">editableFlagField: ""</span>,
+    resizing: true,
+    editable: true,
+    editableFlagField: "",
 
     headerTemplate: function() { ... },
     itemTemplate: function(value, item) { ... },
     filterTemplate: function() { ... },
     insertTemplate: function() { ... },
     editTemplate: function(value, item) { ... },
-    <span style="color:red">summaryTemplate: function() { ... }</span>,
+    summaryTemplate: function() { ... },
 
-    <span style="color:red">defaultValue: undefined</span>,
+    defaultValue: undefined,
     filterValue: function() { ... },
     insertValue: function() { ... },
     editValue: function() { ... },
-    <span style="color:red">summaryValue: function(values) { ... }</span>,
+    summaryValue: function(values) { ... },
 
     cellRenderer: null,
 
@@ -238,19 +238,19 @@ General options peculiar to all field types:
 - **editing** is a boolean specifying whether or not column has editing (`editTemplate()` is rendered and `editValue()` is included in editing item).
 - **sorting** is a boolean specifying whether or not column has sorting ability.
 - **sorter** is a string or a function specifying how to sort item by the field. The string is a key of sorting strategy in the registry `jsGrid.sortStrategies` (the registry can be easily extended with custom sorting functions). Sorting function has the signature `function(value1, value2) { return -1|0|1; }`.
-- <span style="color:red">**resizing** is a boolean specifying whether or not column is resizable.</span>
-- <span style="color:red">**editable** is a boolean specifying whether or not cell in column is editable. **editable** of each item property can be controlled by another property value by specifiying as `editableFlagField`.</span>
+- **resizing** is a boolean specifying whether or not column is resizable.
+- **editable** is a boolean specifying whether or not cell in column is editable. **editable** of each item property can be controlled by another property value by specifiying as `editableFlagField`.
 - **headerTemplate** is a function to create column header content. It should return markup as string, DomNode or jQueryElement.
 - **itemTemplate** is a function to create cell content. It should return markup as string, DomNode or jQueryElement. The function signature is `function(value, item)`, where `value` is a value of column property of data item, and `item` is a row data item.
 - **filterTemplate** is a function to create filter row cell content. It should return markup as string, DomNode or jQueryElement.
 - **insertTemplate** is a function to create insert row cell content. It should return markup as string, DomNode or jQueryElement.
 - **editTemplate** is a function to create cell content of editing row. It should return markup as string, DomNode or jQueryElement. The function signature is `function(value, item)`, where `value` is a value of column property of data item, and `item` is a row data item.
-- <span style="color:red">**summaryTemplate** is a function to create cell content of summary row row. It should return markup as string, DomNode or jQueryElement.</span>
-- <span style="color:red">**defaultValue** is a value of item property associated with the column.</span>
+- **summaryTemplate** is a function to create cell content of summary row row. It should return markup as string, DomNode or jQueryElement.
+- **defaultValue** is a value of item property associated with the column.
 - **filterValue** is a function returning the value of filter property associated with the column.
 - **insertValue** is a function returning the value of inserting item property associated with the column.
 - **editValue** is a function returning the value of editing item property associated with the column.
-- <span style="color:red">**summaryValue** is a function returning the value of summary values of all items in the grid associated with the column.</span>
+- **summaryValue** is a function returning the value of summary values of all items in the grid associated with the column.
 - **cellRenderer** is a function to customize cell rendering. The function signature is `function(value, item)`, where `value` is a value of column property of data item, and `item` is a row data item. The function should return markup as a string, jQueryElement or DomNode representing table cell `td`.
 - **validate** is a string as validate rule name or validation function or a validation configuration object or an array of validation configuration objects. Read more details about validation in the [Validation section](#validation).
 
@@ -295,10 +295,10 @@ Accepts all value types accepting by `jQuery.height`.
 ### heading (default: `true`)
 A boolean value specifies whether to show grid header or not.
 
-<span style="color:red">### resizing (default: `false`)</span>
+### resizing (default: `false`)
 A boolean value specifies whether to grid header is resizable or not.
 
-<span style="color:red"">### summarying (default: `false`)</span>
+<span style="color:red"">### summarying (default: `false`)
 A boolean value specifies whether to show grid summary row or not.
 
 ### filtering (default: `false`)
@@ -310,13 +310,13 @@ A boolean value specifies whether to show inserting row or not.
 ### editing (default: `false`)
 A boolean value specifies whether editing is allowed.
 
-<span style="color:red"">### summarying (default: `false`)</span>
+<span style="color:red"">### summarying (default: `false`)
 A boolean value specifies whether to show grid summary row or not.
 
 ### selecting (default: `true`)
-A boolean value specifies whether to highlight <span style="color:red">and select</span> a grid row.
+A boolean value specifies whether to highlight and select a grid row.
 
-<span style="color:red">### editOnRowClick (default: `false`)</span>
+### editOnRowClick (default: `false`)
 A boolean value specifies whether to begin editing grid row by single click. If `false`, begin editing row by double clicking.
 
 ### sorting (default: `false`)
@@ -329,7 +329,7 @@ A boolean value specifies whether data is displayed by pages.
 A boolean value specifies whether to load data by page.
 When `pageLoading` is `true` the `loadData` method of controller accepts `filter` parameter with two additional properties `pageSize` and `pageIndex`.
 
-### insertRowLocation (default: `<span style="color:red">"sorted"</span>`)
+### insertRowLocation (default: `"sorted"`)
 Specifies the location of an inserted row within the grid.
 When `insertRowLocation` is `"bottom"` the new row will appear at the bottom of the grid. When set to `"top"`, the new row will appear at the top.
 
@@ -366,7 +366,7 @@ A function handling row double click. Accepts single argument with the following
 
 ```
 
-<span style="color:red">### rowContextmenu</span>
+### rowContextmenu
 A function handling row mouse right click. Accepts single argument with the following structure:
 
 ```javascript
@@ -522,7 +522,7 @@ The function should return markup as a string, jQueryElement or DomNode represen
 A function to customize editing row rendering. The function signature is `function(item, itemIndex)`, where `item` is row data item, and `itemIndex` is the item index.
 The function should return markup as a string, jQueryElement or DomNode representing table row `tr`.
 
-<span style="color:red">### summaryRowRenderer (default `null`)</span>
+### summaryRowRenderer (default `null`)
 A function to customize grid summarying row.
 The function should return markup as a string, jQueryElement or DomNode representing table row `tr`.
 
@@ -571,7 +571,7 @@ Custom properties:
 ```javascript
 
 {
-    <span style="color:red">extendedFilter</span>: true,   // a boolean defines whether filter supports wildcard.
+    extendedFilter: true,   // a boolean defines whether filter supports wildcard.
     autosearch: true,       // triggers searching when the user presses `enter` key in the filter input
     readOnly: false         // a boolean defines whether input is readonly (added in v1.4)
 }
@@ -586,10 +586,10 @@ Custom properties:
 ```javascript
 
 {
-    <span style="color:red">valueType</span>: "integer", // or "float". a string defines where value type is integer or float.
-    <span style="color:red">minValue</span>: undefined,    // a number value defines minimum value to input.
-    <span style="color:red">maxValue</span>: undefined,    // a number value defines maximum value to input.
-    <span style="color:red">valueStep</span>: undefined,    // a number value defines step to change value by clicking up/down arrows in the edit box.
+    valueType: "integer", // or "float". a string defines where value type is integer or float.
+    minValue: undefined,    // a number value defines minimum value to input.
+    maxValue: undefined,    // a number value defines maximum value to input.
+    valueStep: undefined,    // a number value defines step to change value by clicking up/down arrows in the edit box.
     sorter: "number",   // uses sorter for numbers
     align: "right",     // right text alignment
     readOnly: false     // a boolean defines whether input is readonly (added in v1.4)
@@ -605,7 +605,7 @@ Custom properties:
 ```javascript
 
 {
-    <span style="color:red">allowEmpty</span>: true, // a boolean defines whether allows property value be empty.
+    allowEmpty: true, // a boolean defines whether allows property value be empty.
     align: "center",            // center text alignment
     autosearch: true,           // triggers searching when the user changes the selected item in the filter
     items: [],                  // an array of items for select
@@ -705,8 +705,8 @@ Custom properties:
     inserting: false,                               // disable inserting for column
     editing: false,                                 // disable editing for column
     sorting: false,                                 // disable sorting for column
-    <span style="color:red">deletable</span>: true,                         // enable delete button on each row
-    <span style="color:red">deletableFlagField</span>: "",                         // switch delete button on each row enable/disable on specified item property value.
+    deletable: true,                         // enable delete button on each row
+    deletableFlagField: "",                         // switch delete button on each row enable/disable on specified item property value.
 
     searchModeButtonTooltip: "Switch to searching", // tooltip of switching filtering/inserting button in inserting mode
     insertModeButtonTooltip: "Switch to inserting", // tooltip of switching filtering/inserting button in filtering mode
@@ -914,8 +914,8 @@ Get grid current sorting params as a plain object with the following format:
 {
     field,      // the name of the field by which grid is sorted
     order,       // 'asc' or 'desc' depending on sort order
-    <span style="color:red">field2</span>,      // the name of the 2nd field by which grid is sorted in case of 1st field values are same
-    <span style="color:red">order2</span>       // 'asc' or 'desc' depending on sort order in case of 1st field values are same
+    field2,      // the name of the 2nd field by which grid is sorted in case of 1st field values are same
+    order2       // 'asc' or 'desc' depending on sort order in case of 1st field values are same
 }
 
 ```
@@ -926,7 +926,7 @@ var sorting = $("#grid").jsGrid("getSorting");
 
 ```
 
-<span style="color:red">### getSelectedItems()</span>: `Object`
+### getSelectedItems(): `Object`
 Get selected items in grid as a plain objects.
 
 ```javascript
@@ -1126,7 +1126,7 @@ $("#grid").jsGrid("search", { Name: "John" }).done(function() {
 
 ```
 
-<span style="color:red">### setSelectedItems(selectedItems)</span>
+### setSelectedItems(selectedItems)
 Sets selected rows.
 
 **selectedItems** is array of the plain object.
@@ -1155,7 +1155,7 @@ $("#grid").jsGrid("showNextPages");
 
 ```
 
-### sort(sortConfig|field, [order], <span style="color:red"">[field2]</span>, <span style="color:red"">[order2]</span>): `Promise`
+### sort(sortConfig|field, [order], <span style="color:red"">[field2], <span style="color:red"">[order2]): `Promise`
 Sorts grid by specified field.
 Returns jQuery promise resolved when sorting is completed.
 
@@ -1165,9 +1165,9 @@ Returns jQuery promise resolved when sorting is completed.
 
 **order** is the sorting order. Accepts the following values: "asc"|"desc"
 
-<span style="color:red"">**field2** is the 2nd field to sort by in case of 1st field values are same. It could be zero-based field index or field name or field reference</span>
+<span style="color:red"">**field2** is the 2nd field to sort by in case of 1st field values are same. It could be zero-based field index or field name or field reference
 
-<span style="color:red"">**order2** is the 2nd sorting order. Accepts the following values: "asc"|"desc"</span>
+<span style="color:red"">**order2** is the 2nd sorting order. Accepts the following values: "asc"|"desc"
 
 If `order` is not specified, then data is sorted in the reversed to current order, when grid is already sorted by the same field. Or `"asc"` for sorting by another field.
 
@@ -1277,12 +1277,12 @@ The following callbacks are supported:
     onItemDeleting: function(args) {},   // before controller.deleteItem
     onItemDeleted: function(args) {},    // on done of controller.deleteItem
     onItemInvalid: function(args) {},    // after item validation, in case data is invalid
-    <span style="color:red">onItemSelected</span>: function(args) {},    // after item selected
-    <span style="color:red">onItemSonItemConfirmDeleteelected</span>: function(args) {},    // after delete button clicked.
-    <span style="color:red">onInitFilter</span>: function(args) {},    // after initialize filter row
-    <span style="color:red">onFilterChanged</span>: function(args) {},    // after filter value changed
-    <span style="color:red">onInitFieldWidth</span>: function(args) {},    // after initialize column header width
-    <span style="color:red">onFieldWidthChanged</span>: function(args) {},    // after column header width changed
+    onItemSelected: function(args) {},    // after item selected
+    onItemSonItemConfirmDeleteelected: function(args) {},    // after delete button clicked.
+    onInitFilter: function(args) {},    // after initialize filter row
+    onFilterChanged: function(args) {},    // after filter value changed
+    onInitFieldWidth: function(args) {},    // after initialize column header width
+    onFieldWidthChanged: function(args) {},    // after column header width changed
 
     onError: function(args) {},          // on fail of any controller call
 
