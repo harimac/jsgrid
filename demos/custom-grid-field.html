@@ -6,12 +6,17 @@
     <link rel="stylesheet" type="text/css" href="demos.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,400' rel='stylesheet' type='text/css' />
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/cupertino/jquery-ui.css">
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/cupertino/jquery-ui.css"> -->
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" type="text/css" href="../css/jsgrid.css" />
     <link rel="stylesheet" type="text/css" href="../css/theme.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> -->
+    <!-- <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script src="db.js"></script>
 
@@ -45,51 +50,295 @@
         $(function() {
 
             var MyDateField = function(config) {
-                jsGrid.Field.call(this, config);
+                jsGrid.TextField.call(this, config);
             };
 
-            MyDateField.prototype = new jsGrid.Field({
+            MyDateField.prototype = new jsGrid.TextField({
+                filter_placeholder: "Input a date range to filter...",
+                textDirection: "ltr", // or "rtl"
+                applyLabel: null,
+                cancelLabel: null,
+                fromLabel: null,
+                toLabel: null,
+                weekLabel: null,
+                customRangeLabel: null,
+                todayLabel: "Today",
+                yesterdayLabel: "Yesterday",
+                last30daysLabel: "Last 30 days",
+                thisMonthLabel: "This month",
+                lastMonthLabel: "Last month",
+                orderYearMonthFunc: null,
+                initFilterValue: null,
+
                 sorter: function(date1, date2) {
-                    return new Date(date1) - new Date(date2);
+                    if (!date1)
+                        date1 = new Date(8640000000000000); // MAX
+                    if (!date2)
+                        date2 = new Date(8640000000000000); // MAX
+                    var dateValue1 = $.type(date1) === "date" ? date1: new Date(date1);
+                    var dateValue2 = $.type(date2) === "date" ? date2: new Date(date2);
+                    return dateValue1.getTime() - dateValue2.getTime();
                 },
-
                 itemTemplate: function(value) {
-                    return new Date(value).toDateString();
+                    if (value === undefined || value === null)
+                        return "";
+                    value = $.type(value) === "date" ? value: new Date(value)
+                    return value.toLocaleDateString();
+                },
+                insertTemplate: function() {
+                    var $result = this._insertPicker = this.createInput(this.defaultValue);
+                    this._insertPicker.attr("title", this.insert_placeholder);
+                    if (this.editable ===false) {
+                        $result.attr("readonly", true);
+                    }
+                    return $result;
                 },
 
-                insertTemplate: function(value) {
-                    return this._insertPicker = $("<input>").datepicker({ defaultDate: new Date() });
+                filterTemplate: function() {
+                    this._filterPicker = this.createFilterInput();
+                    this._filterPicker.attr("placeholder", this.filter_placeholder);
+                    this._filterPicker.attr("title", this.filter_placeholder);
+                    var grid = this._grid;
+                    var eventArgs = {
+                        columnName: this.name,
+                        field: this
+                    }
+                    grid._callEventHandler(grid.onInitFilter, eventArgs);
+                    if(this.autosearch) {
+                        var grid = this._grid
+                        this._filterPicker.on("change", function(e) {
+                            var eventArgs2 = {
+                                columnName: this.name,
+                                value: this.filterValue()
+                            }
+                            grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                            grid.search();
+                        }.bind(this));
+                    }
+                    return this._filterPicker;
                 },
 
-                editTemplate: function(value) {
-                    return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+                editTemplate: function(value, item) {
+                    var $result = this._editPicker = this.createInput(value);
+                    this._editPicker.attr("title", this.edit_placeholder);
+                    if (this.editable === false || (this.editableFlagField && !item[this.editableFlagField])) {
+                        $result.attr("readonly", true);
+                    }
+                    return $result;
                 },
 
                 insertValue: function() {
-                    return this._insertPicker.datepicker("getDate").toISOString();
+                    var value = this._insertPicker.val()
+                    if (value === null || value === undefined || value === "")
+                        return null;
+                    return $.type(value) === "date" ? value: new Date(value);
+                },
+
+                filterValue: function() {
+                    var valString = this._filterPicker.val();
+                    if (!valString)
+                        return null;
+                    var picker = this._filterPicker.data('daterangepicker');
+                    if (!picker) {
+                        if (this.initFilterValue !== null) {
+                            return this.initFilterValue;
+                        }
+                        return null;
+                    }
+                    var range = {
+                        start: picker.startDate,
+                        end: picker.endDate
+                    };
+                    return range;
+                    //var value = this._filterPicker.val()
+                    //if (value === null || value === undefined || value === "")
+                    //	return null;
+                    //return $.type(value) === "date" ? value: new Date(value);
+                },
+                setFilterValue: function(newValue) {
+                    if (this._filterPicker !== null && this._filterPicker !== undefined) {
+                        var curValue = this.filterValue();
+                        if (newValue !== undefined && newValue !== null) {
+                            var picker = this._filterPicker.data('daterangepicker');
+                            var start =  moment(newValue.start);
+                            var end = moment(newValue.end);
+                            if (picker !== null && picker !== undefined) {
+                                picker.start = start;
+                                picker.end = end;
+                            }
+                            else {
+                                this.initFilterValue = { startDate: start, endDate: end };
+                            }
+                            var value = start.format('L') + ' - ' + end.format('L');
+                            this._filterPicker.val(value);
+                            this._filterPicker.attr("title", value);
+                        }
+                        else {
+                            this._filterPicker.val(newValue);
+                            this._filterPicker.attr("title", newValue);
+                        }
+                        var eventArgs2 = {
+                            columnName: this.name,
+                            value: newValue
+                        }
+                        var grid = this._grid;
+                        grid._callEventHandler(grid.onFilterChanged, eventArgs2);
+                    }
                 },
 
                 editValue: function() {
-                    return this._editPicker.datepicker("getDate").toISOString();
+                    var value = this._editPicker.val()
+                    if (value === null || value === undefined || value === "")
+                        return null;
+                    return $.type(value) === "date" ? value: new Date(value);
+                },
+
+                createInput: function(defaultValue) {
+                    var strValue = moment(defaultValue === undefined || defaultValue === null ? new Date() : new Date(defaultValue)).format('YYYY-MM-DD');
+                    var classes = jsGrid.fieldsClasses.input ? " class='" + jsGrid.fieldsClasses.input + "'" : "";
+                    var $input =  $("<input" + classes + ">").attr("type", "date");
+                    if (defaultValue !== undefined && defaultValue !== null)
+                        $input.val(strValue);
+                    return $input;
+                },
+                generateFilterRange(ranges) {
+                    ranges[this.todayLabel] = [moment(), moment()];
+                    ranges[this.yesterdayLabel] = [moment().subtract(1, 'days'), moment().subtract(1, 'days')];
+                    ranges[this.last30daysLabel] = [moment().subtract(29, 'days'), moment()];
+                    ranges[this.thisMonthLabel] = [moment().startOf('month'), moment().endOf('month')];
+                    ranges[this.lastMonthLabel] = [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')];
+                },
+                createFilterInput: function() {
+                    //var classes = jsGrid.fieldsClasses.input ? " class='" + jsGrid.fieldsClasses.input + "'" : "";
+                    var $input =  $("<input>").attr("type", "text");
+                    if (jsGrid.fieldsClasses.input) {
+                        $input.attr("class", jsGrid.fieldsClasses.input);
+                    }
+                    var grid = this._grid;
+                    $input.ready(function(){
+                        var option ={
+                            //autoApply: true,
+                            autoUpdateInput: false,
+                            linkedCalendars: false,
+                            showCustomRangeLabel: true,
+                            alwaysShowCalendars: false,
+                            //showDropdowns: true,
+                            buttonClasses: "btn btn-sm ",
+                            ranges: {},
+                            locale: {
+                                direction: this.textDirection, // "ltr" or "rtl"
+                                applyLabel: this.applyLabel,
+                                cancelLabel: this.cancelLabel,
+                                fromLabel: this.fromLabel,
+                                toLabel: this.toLabel,
+                                weekLabel: this.weekLabel,
+                                customRangeLabel: this.customRangeLabel
+                            },
+                            orderYearMonth: this.orderYearMonthFunc/*function(yearHtml, monthHtml) {
+                                return yearHtml + "å¹´ " + monthHtml;
+                            }*/
+                        };
+                        if (this.initFilterValue !== null) {
+                            option.startDate = this.initFilterValue.start;
+                            option.endDate = this.initFilterValue.end;
+                            //var value = this.initFilterValue.startDate.format('L') + ' - ' + this.initFilterValue.endDate.format('L');
+                            //$input.val(value);
+                            //$input.attr("title", value);
+                        }
+                        this.generateFilterRange(option.ranges);
+                        //option.ranges[this.todayLabel] = [moment(), moment()];
+                        //option.ranges[this.yesterdayLabel] = [moment().subtract(1, 'days'), moment().subtract(1, 'days')];
+                        //option.ranges[this.last30daysLabel] = [moment().subtract(29, 'days'), moment()];
+                        //option.ranges[this.thisMonthLabel] = [moment().startOf('month'), moment().endOf('month')];
+                        //option.ranges[this.lastMonthLabel] = [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')];
+                        $input.daterangepicker(option, function(start, end, label) {
+                            console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
+                        });
+                        $input.on('apply.daterangepicker', function(ev, picker) {
+                            var value = picker.startDate.format('L') + ' - ' + picker.endDate.format('L');
+                            $input.val(value);
+                            $input.attr("title", value);
+                            var eventArgs = {
+                                columnName: this.name,
+                                value: this.filterValue()
+                            }
+                            grid._callEventHandler(grid.onFilterChanged, eventArgs);
+                            grid.search();
+                    }.bind(this));
+                    $input.on('cancel.daterangepicker', function(ev, picker) {
+                        $input.val('');
+                                $input.attr("title", this.filter_placeholder);
+                                var eventArgs = {
+                                    columnName: this.name,
+                                    value: this.filterValue()
+                                }
+                                grid._callEventHandler(grid.onFilterChanged, eventArgs);
+                                grid.search();
+                    }.bind(this));
+                        if (this.initFilterValue !== null) {
+                            grid.search();
+                            this.initFilterValue = null;
+                        }
+                    }.bind(this));
+                    $input.on("remove", function () {
+                        $input.data('daterangepicker').remove();
+                    })
+                    return $input;
                 }
             });
+            jsGrid.fields.date = jsGrid.MyDateField = MyDateField;
+            jsGrid.filterDate = function(value, filter) {
+                if (filter === undefined || filter === null || filter === "")
+                    return true;
+                if (value === undefined || value === null || value === "")
+                    return false;
+                if ($.type(filter) === "date" || $.type(filter) === "string") {
+                    var dateValue = $.type(value) === "date" ? value: new Date(value);
+                    var dateFilter = $.type(filter) === "date" ? filter: new Date(filter);
+                    return dateValue.getTime() === dateFilter.getTime();
+                }
+                else if($.type(filter) === "object" && filter.start && filter.end){
+                    var momValue = moment(value);
+                    return momValue.isAfter(filter.start) && momValue.isBefore(filter.end);
+                }
+                return true;
+            };
 
-            jsGrid.fields.myDateField = MyDateField;
+            var userdb = {
+                users: db.users,
+                loadData: function(filter) {
+                    return $.grep(this.users, function(client) {
+                        return jsGrid.filterExtendedString(client.Account, filter.Account)
+                            && jsGrid.filterExtendedString(client.Name, filter.Name)
+                            && jsGrid.filterDate(client.RegisterDate, filter.RegisterDate);
+                    });
+                },
+                insertItem: function(insertingUser) {
+                    this.users.push(insertingUser);
+                },
+                updateItem: function(updatingUser) { },
+                deleteItem: function(deletingUser) {
+                    var userIndex = $.inArray(deletingUser, this.users);
+                    this.users.splice(userIndex, 1);
+                },
+            };
 
             $("#jsGrid").jsGrid({
                 height: "70%",
                 width: "100%",
+                filtering: true,
                 inserting: true,
                 editing: true,
                 sorting: true,
                 paging: true,
                 fields: [
-                    { name: "Account", width: 150, align: "center" },
+                    { name: "Account", type: "text", width: 150, align: "center" },
                     { name: "Name", type: "text" },
-                    { name: "RegisterDate", type: "myDateField", width: 100, align: "center" },
-                    { type: "control", editButton: false, modeSwitchButton: false }
+                    { name: "RegisterDate", type: "date", width: 200, align: "center" },
+                    { type: "control", editButton: false, modeSwitchButton: true }
                 ],
-                data: db.users
+                autoload: true,
+                controller: userdb,
             });
 
         });
