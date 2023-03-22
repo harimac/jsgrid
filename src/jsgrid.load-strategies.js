@@ -44,6 +44,20 @@
         },
 
         finishLoad: function(loadedData) {
+            var sortFactor = this._grid._sortFactor(),
+                sortField = this._grid._sortField;
+            var sortFactor2 = this._grid._sortFactor2(),
+                sortField2 = this._grid._sortField2;
+
+            if(sortField) {
+                loadedData.sort(function(item1, item2) {
+                    var res = sortFactor * sortField.sortingFunc(item1[sortField.name], item2[sortField.name]);
+                    if (res == 0 && sortField2 !== undefined && sortField2 !== null) {
+                      return sortFactor2 * sortField2.sortingFunc(item1[sortField2.name], item2[sortField2.name]);
+                    }
+                    return res;
+                });
+            }
             this._grid.option("data", loadedData);
         },
 
