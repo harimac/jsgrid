@@ -69,7 +69,7 @@
                     sum += val;
                     validCount++;
                     if (val < min)
-                        mi= val;
+                        min = val;
                 }
             });
             var mean = null;

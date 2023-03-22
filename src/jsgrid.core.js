@@ -583,19 +583,21 @@
                         if (isDragging === true) {
                             var newWidth = columnStartingWidth + (e.clientX - dragStartPosition);
                             $th.css("width", newWidth);
+                            var fieldIndex = $.inArray($th.get(0).jsGridField, this.fields);
                             var childIndex = $th.parent().children().index($th);
                             this._contentHeader.find('tr > th:eq('+childIndex+')').css("width", newWidth);
                             var beforeHight = this._summary.outerHeight(true);
                             this._summaryGrid.find('tr > th:eq('+childIndex+')').css("width", newWidth);
                             if (beforeHight !== this._summary.outerHeight(true))
                                 this._refreshHeight();
-                            this.fields[childIndex].width = newWidth;
+                            this.fields[fieldIndex].width = newWidth;
                         }
                     }, this);
 
                     var onDragEnd = $.proxy(function (e) {
                         if (isDragging === true) {
-                            var childIndex = $th.parent().children().index($th);
+                            var childIndex = $.inArray($th.get(0).jsGridField, this.fields);
+                            //var childIndex = $th.parent().children().index($th);
                             document.removeEventListener("mousemove", onMove);
                             document.removeEventListener("mousemove", onDragEnd);
                             var eventArgs2 = {
@@ -906,68 +908,68 @@
                         });
                         if (!this.multiSelecting || (!e.ctrlKey && !e.shiftKey)) {
                             oldSelectItems.forEach(function(itm) {
-                            itm.selected = false;
-                            this.rowByItem(itm).removeClass(this.selectedRowClass);
+                                itm.selected = false;
+                                this.rowByItem(itm).removeClass(this.selectedRowClass);
                             }.bind(this));
                             if (!item.selected) {
-                            $result.removeClass(this.hoveredRowClass);
-                            $result.toggleClass(this.selectedRowClass);
-                            item.selected = true;
-                            this.onItemSelected([item], oldSelectItems);
+                                $result.removeClass(this.hoveredRowClass);
+                                $result.toggleClass(this.selectedRowClass);
+                                item.selected = true;
+                                this.onItemSelected([item], oldSelectItems);
                             }
                             else if (oldSelectItems.length > 0) {
-                            this.onItemSelected([], oldSelectItems);
+                                this.onItemSelected([], oldSelectItems);
                             }
                             this.lastSelectedRow = $result;
                         }
                         else {
                             if (!e.shiftKey || !this.lastSelectedRow) {
-                            if (e.ctrlKey) {
-                                $result.removeClass(this.hoveredRowClass);
-                                $result.toggleClass(this.selectedRowClass);
-                                if (!item.selected) {
-                                item.selected = true;
-                                this.onItemSelected([item], []);
+                                if (e.ctrlKey) {
+                                    $result.removeClass(this.hoveredRowClass);
+                                    $result.toggleClass(this.selectedRowClass);
+                                    if (!item.selected) {
+                                        item.selected = true;
+                                        this.onItemSelected([item], []);
+                                    }
+                                    else {
+                                        item.selected = false;
+                                        this.onItemSelected([], [item]);
+                                    }
                                 }
-                                else {
-                                item.selected = false;
-                                this.onItemSelected([], [item]);
-                                }
-                            }
-                            this.lastSelectedRow = $result;
+                                this.lastSelectedRow = $result;
                             }
                             else {
-                            var oldSelectItems = this.data.filter(function(itm) {
-                                return (itm.selected);
-                            });
-                            var rows = this._content.find("tr");
-                            var lastItemIndex = rows.index(this.lastSelectedRow);
-                            var thisIndex = rows.index($result);
-                            var minIndex = Math.min(lastItemIndex, thisIndex);
-                            var maxIndex = Math.max(lastItemIndex, thisIndex);
-                            var newSelected = [];
-                            var newDeselected = [];
-                            for (var i=minIndex; i<=maxIndex; i++) {
-                                var row = rows.get(i);
-                                $(row).removeClass(this.hoveredRowClass);
-                                var itm = $(row).data(JSGRID_ROW_DATA_KEY);
-                                //if (lastItemIndex <  thisIndex) {
-                                $(row).addClass(this.selectedRowClass);
-                                if (!itm.selected)
-                                    newSelected.push(itm);
-                                itm.selected = true;
+                                var oldSelectItems = this.data.filter(function(itm) {
+                                    return (itm.selected);
+                                });
+                                var rows = this._content.find("tr");
+                                var lastItemIndex = rows.index(this.lastSelectedRow);
+                                var thisIndex = rows.index($result);
+                                var minIndex = Math.min(lastItemIndex, thisIndex);
+                                var maxIndex = Math.max(lastItemIndex, thisIndex);
+                                var newSelected = [];
+                                var newDeselected = [];
+                                for (var i=minIndex; i<=maxIndex; i++) {
+                                    var row = rows.get(i);
+                                    $(row).removeClass(this.hoveredRowClass);
+                                    var itm = $(row).data(JSGRID_ROW_DATA_KEY);
+                                    //if (lastItemIndex <  thisIndex) {
+                                    $(row).addClass(this.selectedRowClass);
+                                    if (!itm.selected)
+                                        newSelected.push(itm);
+                                    itm.selected = true;
 
-                                var index = oldSelectItems.indexOf(itm);
-                                if (index > -1) {
-                                    oldSelectItems.splice(index, 1);
+                                    var index = oldSelectItems.indexOf(itm);
+                                    if (index > -1) {
+                                        oldSelectItems.splice(index, 1);
+                                    }
                                 }
-                            }
-                            for (var i=0; i<oldSelectItems.length; i++) {
-                                var $row = this.rowByItem(oldSelectItems[i]);
-                                $row.removeClass(this.selectedRowClass);
-                                oldSelectItems[i].selected = false;
-                            }
-                            this.onItemSelected(newSelected, oldSelectItems);
+                                for (var i=0; i<oldSelectItems.length; i++) {
+                                    var $row = this.rowByItem(oldSelectItems[i]);
+                                    $row.removeClass(this.selectedRowClass);
+                                    oldSelectItems[i].selected = false;
+                                }
+                                this.onItemSelected(newSelected, oldSelectItems);
                             }
                         }
                     }
@@ -986,7 +988,7 @@
                         event: e
                     };
                     this.rowContextmenu(args);
-                    return true;
+                    return !args.cancel;
                 }, this));
             if (item.selected) {
                 $result.addClass(this.selectedRowClass);

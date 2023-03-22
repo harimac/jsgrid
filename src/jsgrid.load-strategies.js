@@ -96,16 +96,16 @@
                 currentElement = sortedArray[currentIndex];
                 var compare = sortingFunc(searchElement, currentElement)
                 if (compare > 0) {
-                minIndex = currentIndex + 1;
+                    minIndex = currentIndex + 1;
                 }
                 else if (compare < 0) {
-                maxIndex = currentIndex - 1;
+                    maxIndex = currentIndex - 1;
                 }
                 else {
-                return { // Modification
-                    found: true,
-                    index: currentIndex
-                };
+                    return { // Modification
+                        found: true,
+                        index: currentIndex
+                    };
                 }
             }
 

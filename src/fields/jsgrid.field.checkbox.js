@@ -120,21 +120,21 @@
             var curValue = this.filterValue();
             if (curValue !== newValue) {
                 if (newValue === null) {
-                this.filterControl.prop({
-                    readOnly: true,
-                    indeterminate: true
-                });
+                    this.filterControl.prop({
+                        readOnly: true,
+                        indeterminate: true
+                    });
                 }
                 else {
-                this.filterControl.prop({
-                    checked: newValue,
-                    readOnly: false,
-                    indeterminate: false
-                });
+                    this.filterControl.prop({
+                        checked: newValue,
+                        readOnly: false,
+                        indeterminate: false
+                    });
                 }
                 var eventArgs2 = {
-                columnName: this.name,
-                value: newValue
+                    columnName: this.name,
+                    value: newValue
                 }
                 var grid = this._grid;
                 grid._callEventHandler(grid.onFilterChanged, eventArgs2);
