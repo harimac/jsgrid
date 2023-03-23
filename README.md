@@ -315,7 +315,7 @@ A boolean value specifies whether to show grid header or not.
 ### resizing (default: `false`)
 A boolean value specifies whether to grid header is resizable or not.
 
-<span style="color:red"">### summarying (default: `false`)
+### summarying (default: `false`)
 A boolean value specifies whether to show grid summary row or not.
 
 ### filtering (default: `false`)
@@ -327,7 +327,7 @@ A boolean value specifies whether to show inserting row or not.
 ### editing (default: `false`)
 A boolean value specifies whether editing is allowed.
 
-<span style="color:red"">### summarying (default: `false`)
+### summarying (default: `false`)
 A boolean value specifies whether to show grid summary row or not.
 
 ### selecting (default: `true`)
@@ -1172,7 +1172,7 @@ $("#grid").jsGrid("showNextPages");
 
 ```
 
-### sort(sortConfig|field, [order], <span style="color:red"">[field2], <span style="color:red"">[order2]): `Promise`
+### sort(sortConfig|field, [order], [field2], [order2]): `Promise`
 Sorts grid by specified field.
 Returns jQuery promise resolved when sorting is completed.
 
@@ -1182,9 +1182,9 @@ Returns jQuery promise resolved when sorting is completed.
 
 **order** is the sorting order. Accepts the following values: "asc"|"desc"
 
-<span style="color:red"">**field2** is the 2nd field to sort by in case of 1st field values are same. It could be zero-based field index or field name or field reference
+**field2** is the 2nd field to sort by in case of 1st field values are same. It could be zero-based field index or field name or field reference
 
-<span style="color:red"">**order2** is the 2nd sorting order. Accepts the following values: "asc"|"desc"
+**order2** is the 2nd sorting order. Accepts the following values: "asc"|"desc"
 
 If `order` is not specified, then data is sorted in the reversed to current order, when grid is already sorted by the same field. Or `"asc"` for sorting by another field.
 
