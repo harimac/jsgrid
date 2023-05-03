@@ -27,6 +27,10 @@ jsGrid is tunable and allows to customize appearance and components.
 
 ![Bootstrap theme grid](bootstrap-theme.png)
 
+- Dark theme.
+
+![Dark theme grid](dark-theme.png)
+
 ## Table of contents
 
 * [Demos](#demos)
