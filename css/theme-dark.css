@@ -1,0 +1,32 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+        --main-text-color: #fff;
+        --main-border-color: #555;
+        --main-global-background-color: #111;
+        --main-background-color: #222;
+        --main-disable-text-color: #bbb;
+        --main-active-background-color: #444;
+        --main-disable-background-color: #444;
+        --header-background-color: #222;
+        --header-background-color-hover: #333;
+        --header-sorted-background-color: #14325f;
+        --header-sorted-background-color-hover: #1c3a68;
+        --filter-background-color: #222;
+        --filter-background-color-hover: #333;
+        --insert-background-color: #343;
+        --insert-background-color-hover: #454;
+        --edit-background-color: #443;
+        --edit-background-color-hover: #554;
+        --cell-border-color: #555;
+        --cell-background-color: #383838;
+        --cell-background-color-alt: #444;
+        --hover-row-background-color: #0e485f;
+        --hover-row-border-color: #0e485f;
+        --selected-row-background-color: #14324f;
+        --selected-row-border-color: #14324f;
+        --validation-error-background-color: #5f4345;
+        --validation-error-background-color-hover: #5f4b4d;
+        --validation-error-border-color: #ff808a;
+        color-scheme: dark;
+    }
+}

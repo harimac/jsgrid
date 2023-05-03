@@ -77,6 +77,10 @@
             theme3: {
                 src: "css/theme-bootstrap.css",
                 dest: "dist/<%= pkg.name %>-theme-bootstrap.css"
+            },
+            theme4: {
+                src: "css/theme-dark.css",
+                dest: "dist/<%= pkg.name %>-theme-dark.css"
             }
         },
 
@@ -146,6 +150,10 @@
             theme3: {
                 src: "<%= concat.theme3.dest %>",
                 dest: "dist/<%= pkg.name %>-theme-bootstrap.min.css"
+            },
+            theme4: {
+                src: "<%= concat.theme4.dest %>",
+                dest: "dist/<%= pkg.name %>-theme-dark.min.css"
             }
         },
 
