@@ -38,26 +38,26 @@
 }
 
 .jsgrid-content-hidden-header {
-  opacity: 0;
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-  height: 0px !important;
-  pointer-events: none;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    height: 0px !important;
+    pointer-events: none;
 }
 
 .jsgrid-content-hidden-header * {
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-  height: 0px !important;
-  pointer-events: none;
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    height: 0px !important;
+    pointer-events: none;
 }
 
 .jsgrid-content-hidden-header-cell {
-  border: 0 none !important;
-  padding: 0px !important;
-  pointer-events: none;
+    border: 0 none !important;
+    padding: 0px !important;
+    pointer-events: none;
 }
 
 .jsgrid-grid-summary {
@@ -67,23 +67,23 @@
 }
 
 .jsgrid-hidden-summary * > .jsgrid-summary-row {
-  opacity: 0;
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-  height: 1px !important;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    height: 1px !important;
 }
 
 .jsgrid-hidden-summary * > .jsgrid-summary-row * {
-  margin: 0;
-  padding: 0;
-  border: 0 none;
-  height: 1px !important;
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    height: 1px !important;
 }
 
 .jsgrid-hidden-summary * > .jsgrid-summary-content {
-  border: 0 none !important;
-  padding: 0px !important;
+    border: 0 none !important;
+    padding: 0px !important;
 }
 
 .jsgrid-table {
@@ -94,7 +94,7 @@
 }
 
 .jsgrid-cell {
-    padding: 0.5em 0.5em;
+    padding: 0.3em 0.5em;
 }
 .jsgrid-cell.jsgrid-spacer-field {
     padding: 0 0;
@@ -108,9 +108,9 @@
 }
 
 .jsgrid-summary-cell {
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: nowrap;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .jsgrid-align-left {
@@ -167,6 +167,9 @@
     width: auto;
 }
 
+.jsgrid-cell input {
+    padding: 0.25em 0.5em;
+}
 
 .jsgrid-hovered-row .jsgrid-cell {
     cursor: pointer;

@@ -1,0 +1,7 @@
+/*
+ * jsGrid v1.5.3 (http://js-grid.com)
+ * (c) 2023 Artem Tabalin
+ * Licensed under  ()
+ */
+
+@media (prefers-color-scheme:dark){:root{--main-text-color:#fff;--main-border-color:#555;--main-global-background-color:#111;--main-background-color:#181818;--main-disable-text-color:#bbb;--main-active-background-color:#444;--main-disable-background-color:#444;--header-background-color:#181818;--header-background-color-hover:#222;--header-sorted-background-color:#14325f;--header-sorted-background-color-hover:#1c3a68;--filter-background-color:#181818;--filter-background-color-hover:#222;--insert-background-color:#232;--insert-background-color-hover:#343;--edit-background-color:#332;--edit-background-color-hover:#443;--cell-border-color:#555;--cell-background-color:#222;--cell-background-color-alt:#282828;--hover-row-background-color:#0e485f;--hover-row-border-color:#0e485f;--selected-row-background-color:#14324f;--selected-row-border-color:#14324f;--validation-error-background-color:#5f4345;--validation-error-background-color-hover:#5f4b4d;--validation-error-border-color:#ff808a;color-scheme:dark}}

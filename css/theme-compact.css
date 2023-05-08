@@ -95,12 +95,13 @@
     scrollbar-highlight-color: var(--header-background-color);
     scrollbar-track-color: var(--header-background-color);
     scrollbar-shadow-color: var(--header-background-color);
-    scrollbar-dark-shadow-color: var(--header-background-color);
+    scrollbar-darkshadow-color: var(--header-background-color);
 }
 
 .jsgrid-header-scrollbar::-webkit-scrollbar,
 .jsgrid-summary-scrollbar::-webkit-scrollbar {
     cursor: pointer;
+    width: 0px;
 }
 
 .jsgrid-header-scrollbar::-webkit-scrollbar-track,

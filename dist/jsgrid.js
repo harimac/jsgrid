@@ -650,7 +650,7 @@
                     else if (elem.style.width === "auto") {
                         width.style = "auto";
                         width.value = "auto";
-                        width.min = field.minWidth;
+                        width.min = field.minWidth||0;
                         autoElemCount++;
                     }
                     else {
@@ -661,11 +661,11 @@
                 }.bind(this));
 
                 var autoWidth = rowSpace / autoElemCount;
-                widthes.forEach(function(width) {
+                for(const width of widthes) {
                     if (width.style === "auto") {
-                        width.real = Math.max(autoWidth, width.real, width.min);
+                        width.real = Math.max(autoWidth, width.real||0, width.min||0);
                     }
-                });
+                };
                 this._headerRow.find("th").each(function(index, elem){
                     var field = elem.jsGridField;
                     field.width = widthes[index].real;//$(elem).outerWidth();
@@ -3479,7 +3479,7 @@
     ControlField.prototype = new Field({
         css: "jsgrid-control-field",
         align: "center",
-        width: "auto",
+        width: 80,
         filtering: false,
         inserting: false,
         editing: false,

@@ -13,7 +13,7 @@
     ControlField.prototype = new Field({
         css: "jsgrid-control-field",
         align: "center",
-        width: "auto",
+        width: 80,
         filtering: false,
         inserting: false,
         editing: false,
