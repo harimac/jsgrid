@@ -133,6 +133,9 @@
 
 .jsgrid-header-title {
     padding: .5em .5em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .jsgrid-spacer-field > .jsgrid-header-title {
     padding: 0 0;

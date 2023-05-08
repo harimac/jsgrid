@@ -18,7 +18,7 @@
     jsGrid.ControlField.prototype.insertButtonClass = "btn-primary oi-check";
     jsGrid.ControlField.prototype.updateButtonClass = "btn-primary oi-check";
     jsGrid.ControlField.prototype.cancelEditButtonClass = "btn-danger oi-x";
-    jsGrid.Grid.prototype.tableClass = "jsgrid-table table table-sm";
+    jsGrid.Grid.prototype.tableClass = "jsgrid-table";
     jsGrid.Grid.prototype.headerRowClass = "jsgrid-header-row";
     jsGrid.Grid.prototype.summaryRowClass = "jsgrid-summary-row";
 
