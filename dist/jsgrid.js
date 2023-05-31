@@ -567,8 +567,12 @@
             var $result = $("<tr>").addClass(this.headerRowClass);
 
             this._eachField(function(field, index) {
+                var headerContent = this.renderTemplate(field.headerTemplate, field);
                 var $thTitle = $('<div>').addClass(this.headerTitleClass)
-                    .append(this.renderTemplate(field.headerTemplate, field));
+                    .append(headerContent);
+                    if (typeof headerContent === "string") {
+                        $thTitle.attr("title", headerContent);
+                    }
                 var $th = this._prepareCell("<th>", field, "headercss", this.headerCellClass, true)
                     .css("width", field.width)
                     .append($thTitle)
@@ -3066,7 +3070,7 @@
         this.valueField = "";
         this.textField = "";
 
-        if(config.valueField && config.items.length) {
+        if(config.valueField && config.items && config.items.length) {
             var firstItemValue = config.items[0][config.valueField];
             this.valueType = (typeof firstItemValue) === numberValueType ? numberValueType : stringValueType;
         }

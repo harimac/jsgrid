@@ -1,7 +1,9 @@
-:root {
-        --main-text-color: #fff;
-        --main-border-color: #555;
-        --main-global-background-color: #111;
-        --main-background-color: #222;
-        --main-disable-text-color: #bbb;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-text-color: #fff;
+    --main-border-color: #555;
+    --main-global-background-color: #111;
+    --main-background-color: #222;
+    --main-disable-text-color: #bbb;
+  }
 }

@@ -1,8 +1,12 @@
+.jsgrid *:focus-visible {
+  outline: none;
+}
+
 .jsgrid-header-cell .btn-sm {
-  padding: 0.25rem 0.3rem;
+  padding: 0.125rem 0.2rem;
 }
 .jsgrid-cell .btn-sm {
-  padding: 0.25rem 0.25rem;
+  padding: 0.125rem 0.2rem;
 }
 
 .jsgrid-grid-header .table {

@@ -8,35 +8,37 @@
     box-sizing: border-box;
 }
 
-/*
 .jsgrid input,
 .jsgrid textarea,
 .jsgrid select {
     font-size: 1em;
 }
-*/
+
 .jsgrid-grid-header {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    border: 1px solid;
 }
 
 .jsgrid-grid-body {
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    border: 1px solid;
+    border-top: none;
 }
 
 .jsgrid-content-hidden-header {
     opacity: 0;
     margin: 0;
     padding: 0;
-    border: 0 none;
+    border: none;
     height: 0px !important;
     pointer-events: none;
 }
@@ -44,40 +46,48 @@
 .jsgrid-content-hidden-header * {
     margin: 0;
     padding: 0;
-    border: 0 none;
+    border: none;
     height: 0px !important;
     pointer-events: none;
 }
 
 .jsgrid-content-hidden-header-cell {
-    border: 0 none !important;
+    border: none !important;
     padding: 0px !important;
     pointer-events: none;
 }
 
 .jsgrid-grid-summary {
     overflow-x: auto;
-    overflow-y: scroll;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    border: 1px solid;
+    border-top: none;
+}
+
+.jsgrid-hidden-summary {
+    border-top: none;
+    border-bottom: none;
+    display:none;
 }
 
 .jsgrid-hidden-summary * > .jsgrid-summary-row {
     opacity: 0;
     margin: 0;
     padding: 0;
-    border: 0 none;
+    border: none;
     height: 1px !important;
 }
 
 .jsgrid-hidden-summary * > .jsgrid-summary-row * {
     margin: 0;
     padding: 0;
-    border: 0 none;
+    border: none;
     height: 1px !important;
 }
 
 .jsgrid-hidden-summary * > .jsgrid-summary-content {
-    border: 0 none !important;
+    border: none !important;
     padding: 0px !important;
 }
 
@@ -89,23 +99,59 @@
 }
 
 .jsgrid-cell {
-    padding: 0.2em 0.5em;
+    border: 1px solid;
+    padding: 0.3em 0.5em;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 0;
 }
+
 .jsgrid-cell.jsgrid-spacer-field {
     padding: 0 0;
 }
 
-.jsgrid-cell {
-    box-sizing: border-box;
+.jsgrid-filter-row > .jsgrid-cell,
+.jsgrid-insert-row > .jsgrid-cell {
+    border-bottom: none;
 }
+
 .jsgrid-header-cell {
+    border: 1px solid;
+    border-top: none;
+    border-bottom: none;
     position: relative;
 }
 
 .jsgrid-summary-cell {
+    border: 1px solid;
+    border-top: none;
+    border-bottom: none;
     box-sizing: border-box;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.jsgrid-header-row > .jsgrid-header-cell:first-child,
+.jsgrid-summary-row > .jsgrid-summary-cell:first-child,
+.jsgrid-filter-row > .jsgrid-cell:first-child,
+.jsgrid-insert-row > .jsgrid-cell:first-child,
+.jsgrid-grid-body .jsgrid-cell:first-child {
+    border-left: none;
+}
+
+.jsgrid-header-row > .jsgrid-header-cell:last-child,
+.jsgrid-summary-row > .jsgrid-summary-cell:last-child,
+.jsgrid-filter-row > .jsgrid-cell:last-child,
+.jsgrid-insert-row > .jsgrid-cell:last-child,
+.jsgrid-grid-body .jsgrid-cell:last-child {
+    border-right: none;
+}
+
+.jsgrid-grid-body .jsgrid-row:first-child .jsgrid-cell,
+.jsgrid-grid-body .jsgrid-alt-row:first-child .jsgrid-cell {
+    border-top: none;
 }
 
 .jsgrid-align-left {
@@ -127,7 +173,7 @@
 }
 
 .jsgrid-header-title {
-    padding: .2em .5em;
+    padding: .5em .5em;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -150,9 +196,17 @@
 .jsgrid-edit-row select,
 .jsgrid-insert-row input,
 .jsgrid-insert-row textarea,
-.jsgrid-insert-row select,
+.jsgrid-insert-row select {
+    width: 100%;
+    padding: 0.3em 0.5em;
+    border: 1px solid;
+}
+
 .jsgrid-summary-row select {
     width: 100%;
+    padding: 0 0;
+    font-weight: bold;
+    border: none;
 }
 
 .jsgrid-filter-row input[type='checkbox'],
@@ -161,9 +215,10 @@
     width: auto;
 }
 
-.jsgrid-cell input {
-    padding: 0.25em 0.5em;
-    font-size: .875em;
+.jsgrid-cell input,
+.jsgrid-cell textarea,
+.jsgrid-cell select {
+    padding: 0.3em 0.5em;
 }
 
 .jsgrid-hovered-row .jsgrid-cell {

@@ -10,7 +10,7 @@
         this.valueField = "";
         this.textField = "";
 
-        if(config.valueField && config.items.length) {
+        if(config.valueField && config.items && config.items.length) {
             var firstItemValue = config.items[0][config.valueField];
             this.valueType = (typeof firstItemValue) === numberValueType ? numberValueType : stringValueType;
         }

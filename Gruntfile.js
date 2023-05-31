@@ -58,13 +58,13 @@
                 ],
                 dest: "dist/<%= pkg.name %>.js"
             },
+            js2: {
+                src: "src/fields/jsgrid.field.extended.js",
+                dest: "dist/<%= pkg.name %>-extended-field.js"
+            },
             css1: {
                 src: "css/jsgrid.css",
                 dest: "dist/<%= pkg.name %>.css"
-            },
-            css2: {
-                src: "css/jsgrid-compact.css",
-                dest: "dist/<%= pkg.name %>-compact.css"
             },
             theme1: {
                 src: "css/theme.css",
@@ -124,6 +124,10 @@
             js1:{
                 src: "src/jsgrid-theme-bootstrap.js",
                 dest: "dist/jsgrid-theme-bootstrap.min.js"
+            },
+            js3: {
+                src: "src/fields/jsgrid.field.extended.js",
+                dest: "dist/jsgrid-extended-field.min.js"
             }
         },
 
@@ -134,10 +138,6 @@
             css1: {
                 src: "<%= concat.css1.dest %>",
                 dest: "dist/<%= pkg.name %>.min.css"
-            },
-            css2: {
-                src: "<%= concat.css2.dest %>",
-                dest: "dist/<%= pkg.name %>-compact.min.css"
             },
             theme1: {
                 src: "<%= concat.theme1.dest %>",

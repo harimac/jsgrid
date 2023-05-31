@@ -7,7 +7,7 @@
                 return jsGrid.filterExtendedString(client.Name, filter.Name)
                     && (filter.Age === undefined || client.Age === filter.Age)
                     && jsGrid.filterExtendedString(client.Address, filter.Address)
-                    && (!filter.Country || client.Country === filter.Country)
+                    && (!filter.Country || (Array.isArray(filter.Country) ? filter.Country.includes(client.Country) : client.Country === filter.Country))
                     && (filter.Married === undefined || client.Married === filter.Married);
             });
         },
