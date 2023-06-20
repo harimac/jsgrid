@@ -137,5 +137,14 @@
     });
 
     jsGrid.fields.number = jsGrid.NumberField = NumberField;
-
+    jsGrid.filterNumber = function(value, filter) {
+        if (!filter)
+            return true;
+        if (!value)
+            return false;
+        if (filter.search(/[<>=!]/g) !== -1) {
+            return eval(`${value} ${filter}`)
+        }
+        return value === filter;
+    };
 }(jsGrid, jQuery));

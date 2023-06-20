@@ -571,7 +571,7 @@
                 var $thTitle = $('<div>').addClass(this.headerTitleClass)
                     .append(headerContent);
                     if (typeof headerContent === "string") {
-                        $thTitle.attr("title", headerContent);
+                        $thTitle.attr("title", field.tooltip ? field.tooltip : headerContent);
                     }
                 var $th = this._prepareCell("<th>", field, "headercss", this.headerCellClass, true)
                     .css("width", field.width)
@@ -2640,6 +2640,7 @@
     Field.prototype = {
         name: "",
         title: null,
+        tooltip: null,
         css: "",
         align: "",
         width: 100,
@@ -3002,7 +3003,16 @@
     });
 
     jsGrid.fields.number = jsGrid.NumberField = NumberField;
-
+    jsGrid.filterNumber = function(value, filter) {
+        if (!filter)
+            return true;
+        if (!value)
+            return false;
+        if (filter.search(/[<>=!]/g) !== -1) {
+            return eval(`${value} ${filter}`)
+        }
+        return value === filter;
+    };
 }(jsGrid, jQuery));
 
 (function(jsGrid, $, undefined) {

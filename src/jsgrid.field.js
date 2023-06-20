@@ -8,6 +8,7 @@
     Field.prototype = {
         name: "",
         title: null,
+        tooltip: null,
         css: "",
         align: "",
         width: 100,

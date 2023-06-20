@@ -565,7 +565,7 @@
                 var $thTitle = $('<div>').addClass(this.headerTitleClass)
                     .append(headerContent);
                     if (typeof headerContent === "string") {
-                        $thTitle.attr("title", headerContent);
+                        $thTitle.attr("title", field.tooltip ? field.tooltip : headerContent);
                     }
                 var $th = this._prepareCell("<th>", field, "headercss", this.headerCellClass, true)
                     .css("width", field.width)
