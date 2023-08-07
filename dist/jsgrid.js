@@ -3008,7 +3008,7 @@
             return true;
         if (!value)
             return false;
-        if (filter.search(/[<>=!]/g) !== -1) {
+        if (typeof filter === 'string' && filter.search(/[<>=!]/g) !== -1) {
             return eval(`${value} ${filter}`)
         }
         return value === filter;
