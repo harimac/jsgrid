@@ -609,7 +609,7 @@
                             var childIndex = $.inArray($th.get(0).jsGridField, this.fields);
                             //var childIndex = $th.parent().children().index($th);
                             document.removeEventListener("mousemove", onMove);
-                            document.removeEventListener("mousemove", onDragEnd);
+                            document.removeEventListener("mouseup", onDragEnd);
                             var eventArgs2 = {
                                 columnName: this.fields[childIndex].name,
                                 value: this.fields[childIndex].width
@@ -824,7 +824,7 @@
             this._refreshContent();
             this._refreshPager();
             this._refreshSize();
-
+            this._setSortingCss();
             this._callEventHandler(this.onRefreshed);
         },
 
