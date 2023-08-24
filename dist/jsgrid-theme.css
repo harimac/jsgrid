@@ -5,13 +5,13 @@
  */
 
 :root {
-    --jsg-main-text-color: #262626;
-    --jsg-main-border-color: #e9e9e9;
+    --jsg-main-text-color: #000;
+    --jsg-main-border-color: #d9d9d9;
     --jsg-main-global-background-color: #fff;
     --jsg-main-background-color: #fff;
     --jsg-main-disable-text-color: #888;
-    --jsg-header-background-color: #f9f9f9;
-    --jsg-header-background-color-hover: #fcfcfc;
+    --jsg-header-background-color: #e9e9e9;
+    --jsg-header-background-color-hover: #f0f0f0;
     --jsg-header-sort-arrow-color: #009a67;
     --jsg-header-sorted-background-color: #c4e2ff;
     --jsg-header-sorted-background-color-hover: #cceaff;
@@ -23,7 +23,7 @@
     --jsg-edit-background-color-hover: #ffffe8;
     --jsg-cell-border-color: #e9e9e9;
     --jsg-cell-background-color: #fff;
-    --jsg-cell-background-color-alt: #fcfcfc;
+    --jsg-cell-background-color-alt: #f4f4f4;
     --jsg-hover-row-background-color: #c4e2ff;
     --jsg-hover-row-border-color: #c4e2ff;
     --jsg-selected-row-background-color: #6eb8ff;
@@ -127,7 +127,11 @@
     background-color: var(--jsg-header-background-color);
 }
 
-.jsgrid-filter-row > .jsgrid-cell,
+.jsgrid-filter-row > .jsgrid-cell
+{
+    background-color: var(--jsg-header-background-color);
+}
+
 .jsgrid-filter-row input,
 .jsgrid-filter-row select,
 .jsgrid-filter-row textarea {

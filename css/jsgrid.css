@@ -215,7 +215,8 @@
 }
 
 .jsgrid-grid-body .jsgrid-row:first-child .jsgrid-cell,
-.jsgrid-grid-body .jsgrid-alt-row:first-child .jsgrid-cell {
+.jsgrid-grid-body .jsgrid-alt-row:first-child .jsgrid-cell,
+.jsgrid-filter-row > .jsgrid-cell.jsgrid-spacer-field {
     border-top: none;
 }
 
