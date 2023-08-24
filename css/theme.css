@@ -4,7 +4,7 @@
     --jsg-main-global-background-color: #fff;
     --jsg-main-background-color: #fff;
     --jsg-main-disable-text-color: #888;
-    --jsg-header-background-color: #e9e9e9;
+    --jsg-header-background-color: #d9d9e9;
     --jsg-header-background-color-hover: #f0f0f0;
     --jsg-header-sort-arrow-color: #009a67;
     --jsg-header-sorted-background-color: #c4e2ff;
@@ -15,7 +15,7 @@
     --jsg-insert-background-color-hover: #e8ffea;
     --jsg-edit-background-color: #fdffe3;
     --jsg-edit-background-color-hover: #ffffe8;
-    --jsg-cell-border-color: #e9e9e9;
+    --jsg-cell-border-color: #aaa;
     --jsg-cell-background-color: #fff;
     --jsg-cell-background-color-alt: #f4f4f4;
     --jsg-hover-row-background-color: #c4e2ff;
