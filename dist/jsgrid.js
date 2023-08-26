@@ -523,7 +523,13 @@
                     this.rowContextmenu(args);
                     return !args.cancel;
                 }, this));
-
+            if (this.summarying === false) {
+                $body.addClass(this.summarying === false ? "jsgrid-grid-body-wo-summary" : "");
+                $body.on("scroll", $.proxy(function(e) {
+                    this._header.scrollLeft(e.target.scrollLeft);
+                    this._body.scrollLeft(e.target.scrollLeft);
+                }, this))
+            }
             return $body;
         },
 
@@ -537,10 +543,8 @@
                 .addClass(this._scrollBarWidth() ? "jsgrid-summary-scrollbar" : "")
                 .append($summaryGrid)
                 .on("scroll", $.proxy(function(e) {
-                    var a1 = this._header.scrollLeft(e.target.scrollLeft);
-                    var b1 = this._body.scrollLeft(e.target.scrollLeft);
-                    var a2 = this._header.scrollLeft();
-                    var b2 = this._body.scrollLeft();
+                    this._header.scrollLeft(e.target.scrollLeft);
+                    this._body.scrollLeft(e.target.scrollLeft);
                 }, this))
 
             return $summary;

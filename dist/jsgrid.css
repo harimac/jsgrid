@@ -45,6 +45,11 @@
     border-bottom: none;
 }
 
+.jsgrid-grid-body-wo-summary {
+    overflow-x: auto;
+    border-bottom: 1px solid;
+}
+
 .jsgrid-content-hidden-header {
     opacity: 0;
     margin: 0;
@@ -100,7 +105,8 @@
 }
 
 .jsgrid-summary-scrollbar::-webkit-scrollbar,
-.jsgrid-summary-scrollbar::-webkit-scrollbar-corner {
+.jsgrid-summary-scrollbar::-webkit-scrollbar-corner,
+.jsgrid-grid-body-wo-summary::-webkit-scrollbar-corner {
     visibility: hidden;
 }
 .jsgrid-summary-scrollbar::-webkit-scrollbar:horizontal {

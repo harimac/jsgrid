@@ -4,7 +4,7 @@
     --jsg-main-global-background-color: #fff;
     --jsg-main-background-color: #fff;
     --jsg-main-disable-text-color: #888;
-    --jsg-header-background-color: #d9d9e9;
+    --jsg-header-background-color: #ddd;
     --jsg-header-background-color-hover: #f0f0f0;
     --jsg-header-sort-arrow-color: #009a67;
     --jsg-header-sorted-background-color: #c4e2ff;
@@ -19,9 +19,9 @@
     --jsg-cell-background-color: #fff;
     --jsg-cell-background-color-alt: #f4f4f4;
     --jsg-hover-row-background-color: #c4e2ff;
-    --jsg-hover-row-border-color: #c4e2ff;
+    --jsg-hover-row-border-color: #64b4ff;
     --jsg-selected-row-background-color: #6eb8ff;
-    --jsg-selected-row-border-color: #6eb8ff;
+    --jsg-selected-row-border-color: #48a7ff;
     --jsg-validation-error-background-color: #ffe3e5;
     --jsg-validation-error-background-color-hover: #ffebed;
     --jsg-validation-error-border-color: #ff808a;
@@ -198,7 +198,8 @@
 }
 .jsgrid-hovered-row > .jsgrid-cell {
     background-color: var(--jsg-hover-row-background-color);
-    border-color: var(--jsg-hover-row-background-color);
+    border-top-color: var(--jsg-hover-row-border-color);
+    border-bottom-color: var(--jsg-hover-row-border-color);
 }
 
 .jsgrid-nodata-row > .jsgrid-cell {
